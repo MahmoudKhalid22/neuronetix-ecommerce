@@ -1,0 +1,32 @@
+.container {
+  animation: update 0.7s;
+}
+
+.container input::placeholder {
+  color: #ffffff6e;
+}
+.container button {
+  padding: 0.5rem;
+  border: none;
+  outline: none;
+  font-size: 1.25rem;
+  cursor: pointer;
+  border-radius: 6px;
+  background-color: #2a2aac;
+  color: rgb(255, 251, 12);
+  transition: 0.5s;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+}
+@keyframes update {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

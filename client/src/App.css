@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Tajawal", sans-serif;
+  scroll-behavior: smooth;
+}
+#root {
+  overflow-x: hidden;
+}
+body {
+  scroll-behavior: smooth;
+  background-color: #ececec;
+  font-family: "Tajawal", sans-serif;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.loading {
+  font-size: 1.5rem;
+  color: #111142;
+  font-weight: 600;
+  text-align: center;
+}
+.loading-details {
+  margin: 1rem auto;
+}
