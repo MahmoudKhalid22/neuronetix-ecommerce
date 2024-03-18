@@ -63,9 +63,7 @@ const updateUserEmail = async (id, email) => {
 };
 
 const findUsers = async (id) => {
-  const users = await User.find({}).sort({
-    role: 1,
-  });
+  const users = await User.find({ role: "user" });
   if (!users) return false;
   return users;
 };

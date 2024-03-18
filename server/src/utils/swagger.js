@@ -4,9 +4,8 @@ const options = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "منصة نحيا بالقرآن لتعليم قراءة القرآن",
-      description:
-        "منصة نحيا بالقرآن تتيح للمعلمين والطلاب تسجيل حسابا لهم حيث يمكن للطلاب الاطلاع على جميع المعلمين وخدماتهم وبناء على ذلك يستطيع الطالب أن يحدد أي معلم سيلتحق به. أيضا بالنسبة للمعلمين سيكون متاح لهم تسجيل خدماتهم وقبول الطلاب الملتحقين ونشر مناهجهم وعقد امتحانات للطلبة وفتح فيديو اجتماع",
+      title: "Ecommerce project for internship",
+      description: "This is ecommerce project for one month internship",
       version: "1.0.0",
       contact: {
         name: "Mahmoud Khalid",
@@ -14,7 +13,7 @@ const options = {
         email: "m.khalid.samra@gmail.com",
       },
     },
-    servers: [{ url: "https://tahfeeth-system.onrender.com" }],
+    servers: [{ url: "http://localhost:5000" }],
   },
   apis: ["./src/utils/*.js", "./src/model/*.js"],
 };

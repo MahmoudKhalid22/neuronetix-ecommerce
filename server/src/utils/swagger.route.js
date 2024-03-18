@@ -322,6 +322,36 @@
  */
 /**
  * @swagger
+ *  /user/upload-avatar:
+ *      post:
+ *          summary: upload user avatar
+ *          tags:
+ *              - Authentication
+ *          parameters:
+ *              - in: headers
+ *                name: Authorization
+ *                description: Bearer accessToken sent to server
+ *
+ *          requestBody:
+ *            content:
+ *               multipart/form-data:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          file:
+ *                              type: string
+ *                              format: binary
+ *          responses:
+ *              '200':
+ *                 description: Photo uploaded successfully
+ *              '400':
+ *                  description: Bad request - Missing or invalid parameters
+ *              '500':
+ *                  description: Internal server error - Failed to upload photo
+ */
+
+/**
+ * @swagger
  * /user/me:
  *  get:
  *      summary: get the information of the user
@@ -376,54 +406,15 @@
  *          tags:
  *              - Authentication
  */
-/**
- * @swagger
- *   /user/teachers:
- *       get:
- *          description: get all verified teachers
- *          tags:
- *              - For all Users
- *
- *
- *          responses:
- *              '200':
- *                  content:
- *                      application/json:
- *                          type: object
- *                          schema:
- *                              $ref: '#/components/schemas/Teachers'
- *
- *              '500':
- *                  description: internal server error
- */
-/**
- * @swagger
- *  /user/message:
- *      post:
- *          description: the user send messages for give a feedback or aquirement
- *          tags:
- *              - For all Users
- *          requestBody:
- *            required: true
- *            content:
- *             application/json:
- *              schema:
- *               $ref: '#/components/schemas/Message'
- *          responses:
- *              '200':
- *                 description: the response message
- *                 content:
- *                  application/json:
- *                      type: object
- *                      example: {message: your message has been sent successfully}
- *              '400':
- *                  description: bad request
- */
+
+// FOR ADMIN
+
 /**
  * @swagger
  *  /user/admin:
  *   get:
  *      description: to get all users of the platform
+ *      summary: admin get all users
  *      tags:
  *          - Admin
  *      parameters:
@@ -438,9 +429,67 @@
 
 /**
  * @swagger
- *  /user/admin/message:
+ *  /user/admin/{id}:
+ *   get:
+ *    tags:
+ *      - Admin
+ *    summary: admin get specific user
+ *    parameters:
+ *      - in: path
+ *        name: id
+ *        description: the id of the user
+ *        example: 123
+ *      - in: header
+ *        name: Authorization
+ *        description: the access token with Bearer keyword
+ *        example: Bearer abcxyz123
+ *
+ *    responses:
+ *      '200':
+ *          content:
+ *              application/json:
+ *                  type: object
+ *                  properties:
+ *                      _id:
+ *                          type: string
+ *                      name:
+ *                          type: string
+ *                      email:
+ *                          type: string
+ *                      reviews:
+ *                          type: string
+ */
+/**
+ * @swagger
+ *  /user/admin/{id}:
+ *   delete:
+ *    tags:
+ *      - Admin
+ *    summary: admin delete specific user
+ *    parameters:
+ *      - in: path
+ *        name: id
+ *        description: the id of the user
+ *        example: 123
+ *      - in: header
+ *        name: Authorization
+ *        description: the access token with Bearer keyword
+ *        example: Bearer abcxyz123
+ *
+ *    responses:
+ *      '200':
+ *          content:
+ *              application/json:
+ *                  type: object
+ *                  example: {message: the user has been deleted}
+ */
+
+/**
+ * @swagger
+ *  /message:
  *      get:
  *          description: to get all the messages from users and clients
+ *          summary: get all messages
  *          tags:
  *              - Admin
  *          parameters:
@@ -448,44 +497,97 @@
  *                name: Authorization
  *                description: access token to check if he is the admin
  *                example: Bearer abcxyz123
+ *              - in: header
+ *                name: Authorization
+ *                description: the access token with Bearer keyword
+ *                example: Bearer abcxyz123
  *
  *          responses:
  *           '200':
  *             content:
  *               application/json:
  *                 schema:
- *                  type: object
+ *                  type: array
  *                  $ref: '#/components/schemas/Message'
  */
 
 /**
  * @swagger
- *  /user/join/teacher:
- *      get:
- *          description: if teacher want to join to platform
- *          tags:
- *              - Admin
- *          parameters:
- *              - in: headers
- *                name: Authorization
- *                description: send access token in header to check the admin status with keyword Bearer
- *                example: Bearer abcxyz123
+ *  /message/{id}:
+ *   get:
+ *    tags:
+ *      - Admin
+ *    summary: admin get specific message
+ *    parameters:
+ *      - in: path
+ *        name: id
+ *        description: the id of the user
+ *        example: 123
+ *      - in: header
+ *        name: Authorization
+ *        description: the access token with Bearer keyword
+ *        example: Bearer abcxyz123
  *
- *          responses:
- *              '200':
- *                  content:
- *                      application/json:
- *                          example: {message: notification has been sent to admin. wait for acception}
- *
- *              '500':
- *                 description: internal server error
- *
+ *    responses:
+ *      '200':
+ *          content:
+ *              application/json:
+ *                  type: object
+ *                  properties:
+ *                      _id:
+ *                          type: string
+ *                          exmaple: 123
+ *                      name:
+ *                          type: string
+ *                          example: mahmoud
+ *                      email:
+ *                          type: string
+ *                          example: m@example.com
+ *                      reviews:
+ *                          type: string
+ *                          exmaple: this item is good
  */
 /**
  * @swagger
- *  /user:
+ *  /message/{id}:
+ *   patch:
+ *    tags:
+ *      - Admin
+ *    summary: admin read specific message
+ *    parameters:
+ *      - in: path
+ *        name: id
+ *        description: the id of the user
+ *        example: 123
+ *      - in: header
+ *        name: Authorization
+ *        description: the access token with Bearer keyword
+ *        example: Bearer abcxyz123
+ *
+ *    responses:
+ *      '200':
+ *          content:
+ *              application/json:
+ *                  type: object
+ *                  properties:
+ *                      _id:
+ *                          type: string
+ *                      name:
+ *                          type: string
+ *                      email:
+ *                          type: string
+ *                      message:
+ *                          type: string
+ *                      read:
+ *                          type: boolean
+ */
+
+/**
+ * @swagger
+ *  /user/admin:
  *      post:
  *          description: add user or accept invitation for the users
+ *          summary: admin add user
  *          tags:
  *              - Admin
  *          parameters:
@@ -512,296 +614,152 @@
  *
  *
  */
+
 /**
  * @swagger
- *  /user/{id}:
- *      delete:
- *          description: the admin wants to delete some users
- *          tags:
- *              - Admin
- *          parameters:
- *              - in: path
- *                name: id
- *                type: string
- *                required: true
- *              - in: headers
- *                name: Authorization
- *                description: send access token in header to check the admin status with keyword Bearer
- *                example: Bearer abcxyz123
- *          responses:
- *              '200':
- *                  content:
- *                      application/json:
- *                          schema:
- *                              type: object
- *                              example:
- *                                       {message: user has been deleted}
- *
- *              '400':
- *                  description: internal server error
- *
- */
-/**
- * @swagger
- *  /user/admin/{id}:
- *      get:
- *          description: the admin wants to get one user
- *          tags:
- *              - Admin
- *          parameters:
- *              - in: path
- *                name: id
- *                type: string
- *                required: true
- *              - in: headers
- *                name: Authorization
- *                description: send access token in header to check the admin status with keyword Bearer
- *                example: Bearer abcxyz123
- *          responses:
- *              '200':
- *                  content:
- *                      application/json:
- *                          schema:
- *                              $ref: '#/components/schemas/Teachers'
- *              '500':
- *                  description: internal server error
- *
- *
- *
- */
-/**
- * @swagger
- *  /user/join/student:
- *      get:
- *          description: if student want to join to the teacher
- *          tags:
- *              - Teacher
- *          parameters:
- *              - in: headers
- *                name: Authorization
- *                description: send access token in header to check the admin status with keyword Bearer
- *                example: Bearer abcxyz123
- *
- *          responses:
- *              '200':
- *                  content:
- *                      application/json:
- *                          example: {message: notification has been sent to admin. wait for acception}
- *
- *              '500':
- *                 description: internal server error
- *
- */
-/**
- * @swagger
- *  /user/students:
- *      get:
- *          description: the teacher get all students who joined to him
- *          tags:
- *              - Teacher
- *          parameters:
- *              - in: headers
- *                name: Authorization
- *                description: send access token in header to check the admin status with keyword Bearer
- *                example: Bearer abcxyz123
- *
- *          responses:
- *              '200':
- *                  content:
- *                      application/json:
- *                          schema:
- *                              $ref: '#/components/schemas/Student'
- *
- *              '500':
- *                 description: internal server error
- *
- */
-/**
- * @swagger
- *  /user/tables:
- *      get:
- *           description: get the data of the student activity
- *           tags:
- *              - Students
- *           parameters:
- *              - in: headers
- *                name: Authorization
- *                description: send access token in header to check the admin status with keyword Bearer
- *                example: Bearer abcxyz123
- *
- */
-/**
- * @swagger
- *  /user/join/{id}:
+ *  /product/create-product:
  *   post:
- *      summary: allow user to join to specific teacher
+ *      summary: admin add a new product to the site
  *      tags:
- *          - Students
+ *          - Admin
+ *      parameters:
+ *          - in: header
+ *            name: Authorization
+ *            description: the access token with Bearer keyword
+ *            example: Bearer abcxyz123
+ *      requestBody:
+ *          content:
+ *               application/json:
+ *                 schema:
+ *                  type: array
+ *                  $ref: '#/components/schemas/Message'
+ *      responses:
+ *          '201':
+ *              content:
+ *               application/json:
+ *                 schema:
+ *                  type: array
+ *                  $ref: '#/components/schemas/Message'
+ *
+ */
+
+/**
+ * @swagger
+ *  /product/{id}:
+ *   patch:
+ *      summary: admin update an existing product to the site
+ *      tags:
+ *          - Admin
  *      parameters:
  *          - in: path
  *            name: id
- *            description: the id of the teacher who student wants to join
- *            example: abcxyz123
- *          - in: headers
+ *            description: the id of the product
+ *            example: 123
+ *          - in: header
  *            name: Authorization
- *            description: Bearer and access token of this student to allow him to join
+ *            description: the access token with Bearer keyword
+ *            example: Bearer abcxyz123
+ *      requestBody:
+ *          content:
+ *               application/json:
+ *                 schema:
+ *                  type: array
+ *                  $ref: '#/components/schemas/Message'
+ *      responses:
+ *          '201':
+ *              content:
+ *               application/json:
+ *                 schema:
+ *                  type: array
+ *                  $ref: '#/components/schemas/Message'
+ *
+ */
+
+/**
+ * @swagger
+ *  /product/{id}:
+ *   delete:
+ *      summary: admin delete a  product from the site
+ *      tags:
+ *          - Admin
+ *      parameters:
+ *          - in: path
+ *            name: id
+ *            description: the id of the product
+ *            example: 123
+ *          - in: header
+ *            name: Authorization
+ *            description: the access token with Bearer keyword
  *            example: Bearer abcxyz123
  *      responses:
- *          '200':
+ *          '201':
  *              content:
- *                  application/json:
- *                      example: {message: you have joined ot this teacher}
- *          '500':
- *              description: internal server error
+ *               application/json:
+ *                 schema:
+ *                  type: object
+ *                  example: {message: product has been deleted}
  *
  */
+
+// FOR ALL USERS
+
 /**
  * @swagger
- *  /user/teacher/{id}:
- *      get:
- *          summary: to get specific teacher
- *          tags:
- *              - For all Users
- *          parameters:
- *              - in: path
- *                name: id
- *                description: id of the teacher
- *
- *          responses:
- *              '200':
- *                  content:
- *                      application/json:
- *                        schema:
- *                          $ref: '#/components/schemas/Teachers'
- *
- */
-/**
- * @swagger
- *  /user/upload-avatar:
+ *  /user/message:
  *      post:
- *          summary: upload user avatar
+ *          description: the user send messages for give a feedback or aquirement
  *          tags:
- *              - Authentication
- *          parameters:
- *              - in: headers
- *                name: Authorization
- *                description: Bearer accessToken sent to server
- *
- *          requestBody:
- *            content:
- *               multipart/form-data:
- *                  schema:
- *                      type: object
- *                      properties:
- *                          file:
- *                              type: string
- *                              format: binary
- *          responses:
- *              '200':
- *                 description: Photo uploaded successfully
- *              '400':
- *                  description: Bad request - Missing or invalid parameters
- *              '500':
- *                  description: Internal server error - Failed to upload photo
- */
-/**
- * @swagger
- *  /user/teacher/signup:
- *    post:
- *          summary: the teacher want to add a student for his class
- *          tags:
- *              - Teacher
- *          parameters:
- *              - in: headers
- *                name: Authorization
- *                description: the access token with keyworBearer for the token of the teacher
- *                example: Bearer 123abc...
+ *               - All Users
  *          requestBody:
  *            required: true
  *            content:
- *              application/json:
- *                  schema:
- *                      $ref: '#/components/schemas/User'
+ *             application/json:
+ *              schema:
+ *               $ref: '#/components/schemas/Message'
  *          responses:
  *              '200':
- *                  description: the student has been added
- *                  content:
- *                      application/json:
- *                          schema:
- *                              $ref: '#/components/schemas/Login'
- *              '500':
- *                  description: Internal Server Error
- *
+ *                 description: the response message
+ *                 content:
+ *                  application/json:
+ *                      type: object
+ *                      example: {message: your message has been sent successfully}
+ *              '400':
+ *                  description: bad request
  */
 /**
  * @swagger
- *  /user/student/{id}:
- *      delete:
+ *  /product:
+ *      get:
+ *          description: the user get all products of ecommerce
  *          tags:
- *              - Teacher
- *          summary:
- *              teacher wants to delete specific student
- *          description:
- *              the teacher wants to fire a student from his class
+ *              - All Users
+ *          responses:
+ *              '200':
+ *                 description: the response message
+ *                 content:
+ *                  application/json:
+ *                      type: Array
+ *              '400':
+ *                  description: bad request
+ */
+/**
+ * @swagger
+ *  /product/{id}:
+ *      get:
+ *          description: the user get all products of ecommerce
+ *          tags:
+ *              - All Users
  *          parameters:
  *              - in: path
  *                name: id
- *                example: abc123
- *              - in: headers
- *                name: Authorization
- *                description: the teacher provide his access token so the student will be deleted
- *                example: Bearer xyz123
- *
+ *                description: the id of the product
+ *                example: 123
  *          responses:
  *              '200':
- *                  content:
- *                      application/json:
- *                          schema:
- *                              type: object
- *                              example: {message: student has been deleted}
+ *                 description: the response message
+ *                 content:
+ *                  application/json:
+ *                      type: Array
  *              '400':
- *                  content:
- *                      application/json:
- *                          schema:
- *                              type: object
- *                              example: {message: you are not a teacher or the student is not found}
- *              '500':
- *                  content:
- *                      application/json:
- *                          schema:
- *                              type: object
- *                              example: {message: internal server error}
- *
- */
-/**
- * @swagger
- *  /user/admin/teachers:
- *      get:
- *          tags:
- *              - Admin
- *          description: get all teachers only
- *          parameters:
- *              - in: headers
- *                name: Authorization
- *                description: access token for admin
- *                example: Bearer abcxyz1237540
- *          responses:
- *              '200':
- *                  content:
- *                      application/json:
- *                          schema:
- *                              type: object
- *                              example: {message: student has been deleted}
- *              '400':
- *                  content:
- *                      application/json:
- *                          schema:
- *                              type: object
- *                              example: {message: you are not a teacher or the student is not found}
- *              '500':
- *                  content:
- *                      application/json:
- *                          schema:
- *                              type: object
- *                              example: {message: internal server error}
+ *                  description: bad request
  */

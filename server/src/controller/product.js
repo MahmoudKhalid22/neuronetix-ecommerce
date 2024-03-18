@@ -1,96 +1,92 @@
-const { getUserById } = require("../dbQueries/user");
+const { getUserById } = require("../dbQueries/queries");
+const Product = require("../model/product");
 const Table = require("../model/product");
 
 const getProducts = async (req, res) => {
-  const match = {};
-  const { id } = req.params;
   try {
-    const user = await getUserById(id);
-    if (user.role.toString() !== "student") {
-      return res.send({ error: "you're not a student" });
-    }
-    const tables = await Table.find({ ownerId: req.params.id });
-    res.send(tables);
+    const products = await Product.find({});
+    res.send(products);
   } catch (err) {
     res.status(500).send(err);
   }
 };
 
-const getProductsStd = async (req, res) => {
+const getOneProduct = async (req, res) => {
   try {
-    const userId = req.user;
-    const tables = await Table.find({ ownerId: userId });
-    res.send(tables);
+    const productId = req.params.id;
+    const product = await Table.find({ _id: productId });
+    res.send(product);
   } catch (err) {
     res.status(500).send({ err: err.message });
   }
 };
 
 const createItem = async (req, res) => {
-  const isTeacher = req.user[0].role === "teacher";
-  if (isTeacher) {
-    const item = new Table({ ...req.body, ownerId: req.body.ownerId });
+  const isAdmin = req.user[0].role === "admin";
+  if (isAdmin) {
+    const product = new Product(req.body);
     try {
-      await item.save();
-      res.send(item);
+      await product.save();
+      res.send(product);
     } catch (err) {
-      res.status(500).send(err);
+      res.status(500).send({ err: err.message });
     }
   } else {
-    res.status(400).send("You're not the admin");
+    res.status(400).send({ error: "You're not the admin" });
   }
 };
 
 const updateItem = async (req, res) => {
-  const admins = req.user.filter((admin) => admin.isAdmin === true);
+  const isAdmin = req.user[0].role === "admin";
 
-  if (admins.length > 0) {
+  if (isAdmin) {
     const updates = Object.keys(req.body);
     const allowedUpdates = [
-      "quantity",
-      "level",
-      "tasks",
-      "completed",
-      "questions",
-      "answers",
-      "notes",
+      "img",
+      "name",
+      "imgs",
+      "information",
+      "price",
+      "priceDiscount",
       "rate",
+      "rest",
     ];
 
     const isValidUpdates = updates.every((update) =>
       allowedUpdates.includes(update)
     );
-    if (!isValidUpdates) return res.status(400).send("no valid update");
+    if (!isValidUpdates)
+      return res.status(400).send({ error: "no valid update" });
 
     try {
       const item = await Table.findOne({
         _id: req.params.id,
         owner: req.user._id,
       });
-      if (!task) return res.status(404).send("Task is not found");
+      if (!task) return res.status(404).send({ error: "item is not found" });
 
       updates.forEach((update) => (task[update] = req.body[update]));
 
       await item.save();
       res.send(item);
     } catch (err) {
-      res.status(500).send(err);
+      res.status(500).send({ err: err.message });
     }
   } else {
-    res.status(400).send("You're not the admin");
+    res.status(400).send({ error: "You're not the admin" });
   }
 };
 
-const deleteItem = async (req, res) => {
+const deleteProduct = async (req, res) => {
   try {
-    const isTeacher = req.user[0].role === "teacher";
+    const isAdmin = req.user[0].role === "admin";
 
-    if (isTeacher) {
-      const task = await Table.findByIdAndDelete(req.params.id);
-      if (!task) return res.status(404).send({ error: "Item is not found" });
+    if (isAdmin) {
+      const product = await Product.findByIdAndDelete(req.params.id);
+      if (!product) return res.status(404).send({ error: "Item is not found" });
       res.send({ message: "Item has been deleted" });
     } else {
-      res.status(400).send("You're not a teacher");
+      res.status(400).send({ error: "You're not the admin" });
     }
   } catch (err) {
     res.status(500).send({ err: err.message });
@@ -99,8 +95,8 @@ const deleteItem = async (req, res) => {
 
 module.exports = {
   getProducts,
-  getTablesStd,
+  getOneProduct,
   createItem,
   updateItem,
-  deleteItem,
+  deleteProduct,
 };

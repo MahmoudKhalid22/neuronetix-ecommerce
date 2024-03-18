@@ -3,8 +3,8 @@ const auth = require("../middleware/auth");
 const {
   getProducts,
   getOneProduct,
-  createProduct,
-  updateProduct,
+  createItem,
+  updateItem,
   deleteProduct,
 } = require("../controller/product");
 
@@ -15,8 +15,8 @@ router.get("/", getProducts);
 router.get("/:id", getOneProduct);
 
 // just admin can create - update - delete product
-router.post("/create-product", auth, createProduct);
-router.patch("/:id", auth, updateProduct);
+router.post("/create-product", auth, createItem);
+router.patch("/:id", auth, updateItem);
 router.delete("/:id", auth, deleteProduct);
 
 module.exports = router;

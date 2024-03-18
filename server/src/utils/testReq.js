@@ -1,8 +1,6 @@
 const test = async () => {
   try {
-    const response = await fetch(
-      "https://tahfeeth-system.onrender.com/user/test"
-    );
+    const response = await fetch("http://localhost:5000/user/test");
     if (!response.ok) {
       throw new Error(await response.json());
     }

@@ -6,10 +6,11 @@ const cors = require("cors");
 const path = require("path");
 const hpp = require("hpp");
 require("./config/dbConnection");
-require("./controller/OAuth");
+// require("./controller/OAuth");
 const { test } = require("./utils/testReq");
 const userRouter = require("./router/user");
 const productRouter = require("./router/product");
+const msgRouter = require("./router/message");
 const { docs } = require("./utils/swagger");
 
 const app = express();
@@ -32,6 +33,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use("/user", userRouter);
 app.use("/product", productRouter);
+app.use("/message", msgRouter);
 
 docs(app);
 
