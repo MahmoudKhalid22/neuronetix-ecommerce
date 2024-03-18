@@ -1,6 +1,7 @@
 const { getUserById } = require("../dbQueries/queries");
 const Product = require("../model/product");
 const Table = require("../model/product");
+const User = require("../model/user");
 
 const getProducts = async (req, res) => {
   try {
@@ -93,10 +94,72 @@ const deleteProduct = async (req, res) => {
   }
 };
 
+const rateProduct = async (req, res) => {
+  const user = req.user[0];
+  const productId = req.params.id;
+  const rate = req.body;
+  if (typeof Number(rate) !== "number" || Number(rate) > 5 || Number(rate) < 1)
+    return res.status(400).send({ error: "the rate must be from 1 to 5" });
+  try {
+    const product = await Product.findById(productId);
+
+    if (!product) {
+      return res.status(404).send({ error: "Product not found" });
+    }
+    product.rate.push({ user: user._id, rate: rate }, { new: true });
+    await product.save();
+
+    res.send({ message: "you rated the product" });
+  } catch (err) {
+    res.status(500).send({ err: err.message });
+  }
+};
+
+const reviewProduct = async (req, res) => {
+  const user = req.user[0];
+  const productId = req.params.id;
+  const review = req.body;
+  try {
+    const product = await Product.findById(productId);
+    if (!product) return res.status(404).send({ error: "Product not found" });
+
+    product.reviews.push({ user: user._id, review: review }, { new: true });
+    await product.save();
+    res.send(product);
+  } catch (err) {
+    res.status(500).send({ err: err.message });
+  }
+};
+
+const addToCart = async (req, res) => {
+  const user = req.user[0];
+  const productId = req.params.id;
+  try {
+    user.cart.push({ product: productId });
+    await user.save();
+    res.send(user);
+  } catch (err) {
+    res.status(500).send({ err: err.message });
+  }
+};
+
+const getCart = async (req, res) => {
+  try {
+    const cart = req.user[0].cart;
+    res.send(cart);
+  } catch (err) {
+    res.status(500).send({ err: err.message });
+  }
+};
+
 module.exports = {
   getProducts,
   getOneProduct,
   createItem,
   updateItem,
   deleteProduct,
+  rateProduct,
+  reviewProduct,
+  addToCart,
+  getCart,
 };

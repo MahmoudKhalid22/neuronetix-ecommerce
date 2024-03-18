@@ -763,3 +763,118 @@
  *              '400':
  *                  description: bad request
  */
+
+/**
+ * @swagger
+ *  /product/rate/{id}:
+ *      post:
+ *          tags:
+ *              - Authenticated user
+ *          summary: user wants to rate the product
+ *          parameters:
+ *              - in: path
+ *                name: id
+ *                description: the id of the product
+ *                example: 123
+ *              - in: headers
+ *                name: Authorization
+ *                description: the access token
+ *                example: Bearer ABCxyz125..
+ *          requestBody:
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *                          example: {rate: 4}
+ *          responses:
+ *              '200':
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: object
+ *                              example: {message: you rated this item}
+ */
+/**
+ * @swagger
+ *  /product/review/{id}:
+ *      post:
+ *          tags:
+ *              - Authenticated user
+ *          summary: user wants to add review to the product
+ *          parameters:
+ *              - in: path
+ *                name: id
+ *                description: the id of the product
+ *                example: 123
+ *              - in: headers
+ *                name: Authorization
+ *                description: the access token
+ *                example: Bearer ABCxyz125..
+ *          requestBody:
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *                          example: {review: this product is wonderful}
+ *          responses:
+ *              '200':
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: object
+ *                              example: {review: his review}
+ */
+/**
+ * @swagger
+ *  /product/add-to-cart/{id}:
+ *      post:
+ *          tags:
+ *              - Authenticated user
+ *          summary: user wants to rate the product
+ *          parameters:
+ *              - in: path
+ *                name: id
+ *                description: the id of the product
+ *                example: 123
+ *              - in: headers
+ *                name: Authorization
+ *                description: the access token
+ *                example: Bearer ABCxyz125..
+ *          responses:
+ *              '200':
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: object
+ *                              example: {cart: the user cart}
+ */
+/**
+ * @swagger
+ *  /product/rate/{id}:
+ *      post:
+ *          tags:
+ *              - Authenticated user
+ *          summary: user wants to rate the product
+ *          parameters:
+ *              - in: path
+ *                name: id
+ *                description: the id of the product
+ *                example: 123
+ *              - in: headers
+ *                name: Authorization
+ *                description: the access token
+ *                example: Bearer ABCxyz125..
+ *          requestBody:
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *                          example: {rate: 4}
+ *          responses:
+ *              '200':
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: object
+ *                              example: {message: you rated this item}
+ */

@@ -28,11 +28,10 @@ const productSchema = new mongoose.Schema(
       required: true,
     },
     rate: {
-      type: Boolean,
-      required: true,
+      type: Array,
     },
     rest: {
-      type: String,
+      type: Number,
       required: true,
     },
     reviews: {
