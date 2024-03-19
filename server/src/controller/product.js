@@ -2,6 +2,7 @@ const { getUserById } = require("../dbQueries/queries");
 const Product = require("../model/product");
 const Table = require("../model/product");
 const User = require("../model/user");
+const multer = require("multer");
 
 const getProducts = async (req, res) => {
   try {
@@ -34,6 +35,25 @@ const createItem = async (req, res) => {
     }
   } else {
     res.status(400).send({ error: "You're not the admin" });
+  }
+};
+
+const uploadItemImg = async (req, res) => {
+  try {
+    const isAdmin = req.user[0].role === "admin";
+    const productId = req.params.id;
+    if (!isAdmin)
+      return res.status(400).send({ error: "you're not the admin" });
+    const product = await Product.find({ _id: productId });
+    if (!product) res.status(404).send({ error: "the product is not found" });
+
+    const base64Data = req.file.buffer.toString("base64");
+    imgsrc = `data:${req.file.mimetype};base64,${base64Data}`;
+    product.img = imgsrc;
+    await product.save();
+    res.send(product);
+  } catch (err) {
+    res.status(500).send({ err: err.message });
   }
 };
 
@@ -156,6 +176,7 @@ module.exports = {
   getProducts,
   getOneProduct,
   createItem,
+  uploadItemImg,
   updateItem,
   deleteProduct,
   rateProduct,

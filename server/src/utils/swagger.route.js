@@ -700,6 +700,31 @@
  *                  example: {message: product has been deleted}
  *
  */
+/**
+ * @swagger
+ *  /product/upload-product-image/{id}:
+ *   post:
+ *      summary: admin add image of a product
+ *      tags:
+ *          - Admin
+ *      parameters:
+ *          - in: path
+ *            name: id
+ *            description: the id of the product
+ *            example: 123
+ *          - in: header
+ *            name: Authorization
+ *            description: the access token with Bearer keyword
+ *            example: Bearer abcxyz123
+ *      responses:
+ *          '201':
+ *              content:
+ *               application/json:
+ *                 schema:
+ *                  type: object
+ *                  example: {message: product has been deleted}
+ *
+ */
 
 // FOR ALL USERS
 
@@ -763,6 +788,8 @@
  *              '400':
  *                  description: bad request
  */
+
+// AUTHENTICATED USER
 
 /**
  * @swagger
