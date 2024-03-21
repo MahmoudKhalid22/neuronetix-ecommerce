@@ -16,7 +16,7 @@ const oauth = passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "https://tahfeeth-system.onrender.com/user/details",
+      callbackURL: "http://localhost:5000/user/details",
       // passReqToCallback: true,
     },
     async function (request, accessToken, refreshToken, profile, done) {

@@ -4,13 +4,14 @@ function About() {
   return (
     <div
       id="about"
-      className=" mr-20 sm:mr-28 lg:mr-[20rem] py-8 flex items-start flex-col overflow-x-hidden"
+      className="py-28
+     px-6"
     >
-      <h2 className="text-xl sm:text-3xl font-bold text-[#000] mb-8 ml-6">
+      <h2 className="my-4 text-xl sm:text-3xl font-bold text-[#6d727b] block">
         About us
       </h2>
 
-      <p className="text-black ml-4 sm:w-[30rem] lg:w-[80%] mb-12 leading-[3rem] text-2xl">
+      <p className="text-black sm:w-[30rem] lg:w-[90%] mb-12 leading-8 sm:leading-[2.5rem] md:leading-[3rem] text-sm sm:text-md md:text-2xl">
         <span className="text-[#ec981a] mr-2">
           Located at Zagazig (Algalaa street),
         </span>
@@ -22,7 +23,7 @@ function About() {
         reliability, Typa Electronics has the perfect solution for you.
         Experience the convenience of superior printing technology coupled with
         exceptional service. Visit Typa Electronics today and discover why we're
-        Cityville's go-to destination for all things electronics.{" "}
+        Cityville's go-to destination for all things electronics.
       </p>
     </div>
   );

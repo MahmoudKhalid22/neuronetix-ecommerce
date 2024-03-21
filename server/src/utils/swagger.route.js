@@ -730,7 +730,7 @@
 
 /**
  * @swagger
- *  /user/message:
+ *  /message:
  *      post:
  *          description: the user send messages for give a feedback or aquirement
  *          tags:

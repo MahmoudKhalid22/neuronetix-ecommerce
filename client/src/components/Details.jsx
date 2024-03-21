@@ -15,16 +15,13 @@ function Details({ onSetIsLogin }) {
     const getUserData = async () => {
       try {
         setLoading(true);
-        const response = await fetch(
-          "https://tahfeeth-system.onrender.com/user/me/",
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: "Bearer " + data?.accessToken,
-            },
-          }
-        );
+        const response = await fetch("http://localhost:5000/user/me/", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + data?.accessToken,
+          },
+        });
         if (!response.ok) {
           throw new Error();
         }

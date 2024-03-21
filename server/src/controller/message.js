@@ -3,9 +3,9 @@ const Message = require("../model/Message");
 const messageForm = async (req, res) => {
   try {
     const { name, email, msg } = req.body;
-    const message = new Message({ name, email, msg });
-    await saveUserInDB(message);
 
+    const message = new Message({ name: name, email: email, msg: msg });
+    await message.save();
     res.send({ msg: "your message has been sent" });
   } catch (err) {
     res.status(500).send({ error: "internal server error" });

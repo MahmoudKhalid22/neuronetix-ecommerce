@@ -50,16 +50,13 @@ const Settings = () => {
   const getData = async () => {
     try {
       setLoading(true);
-      const response = await fetch(
-        "https://tahfeeth-system.onrender.com/user/me",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + data?.accessToken,
-          },
-        }
-      );
+      const response = await fetch("http://localhost:5000/user/me", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + data?.accessToken,
+        },
+      });
       const result = await response.json();
       setUserData(result);
     } catch (err) {
@@ -72,7 +69,7 @@ const Settings = () => {
     try {
       setLoading(true);
       const response = await fetch(
-        "https://tahfeeth-system.onrender.com/user/admin/teachers",
+        "http://localhost:5000/user/admin/teachers",
         {
           method: "GET",
           headers: {
@@ -92,16 +89,13 @@ const Settings = () => {
   const getStudents = async () => {
     try {
       setLoading(true);
-      const response = await fetch(
-        "https://tahfeeth-system.onrender.com/user/students",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + teacherToken,
-          },
-        }
-      );
+      const response = await fetch("http://localhost:5000/user/students", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + teacherToken,
+        },
+      });
       const students = await response.json();
       dispatch({ type: "students", payload: students?.students });
     } catch (err) {

@@ -72,7 +72,7 @@ router.get("/me", auth, getUser);
 // router.get(
 //   "/details",
 //   passport.authenticate("google", {
-//     successRedirect: "https://tahfeeth.vercel.app/details",
+//     successRedirect: "http://localhost:5000/details",
 //     failureRedirect: "/user/failure",
 //   })
 // );
@@ -85,7 +85,7 @@ router.get("/me", auth, getUser);
 //   passport.authenticate("facebook", { failureRedirect: "/user/login" }),
 //   function (req, res) {
 //     // Successful authentication, redirect home.
-//     res.redirect("https://tahfeeth.vercel.app");
+//     res.redirect("http://localhost:5000");
 //   }
 // );
 

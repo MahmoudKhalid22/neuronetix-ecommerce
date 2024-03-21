@@ -32,16 +32,13 @@ function Edit() {
       const formData = new FormData();
       formData.append("avatar", avatar);
       setLoading(true);
-      const response = await fetch(
-        "https://tahfeeth-system.onrender.com/user/upload-avatar",
-        {
-          method: "POST",
-          body: formData,
-          headers: {
-            Authorization: "Bearer " + data?.accessToken,
-          },
-        }
-      );
+      const response = await fetch("http://localhost:5000/user/upload-avatar", {
+        method: "POST",
+        body: formData,
+        headers: {
+          Authorization: "Bearer " + data?.accessToken,
+        },
+      });
       if (!response.ok) {
         console.log(await response.json());
         throw new Error();
@@ -68,20 +65,17 @@ function Edit() {
     e.preventDefault();
     try {
       setLoadingPass(true);
-      const res = await fetch(
-        "https://tahfeeth-system.onrender.com/user/update-password",
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + data?.accessToken,
-          },
-          body: JSON.stringify({
-            oldPassword: oldPassword,
-            newPassword: newPassword,
-          }),
-        }
-      );
+      const res = await fetch("http://localhost:5000/user/update-password", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + data?.accessToken,
+        },
+        body: JSON.stringify({
+          oldPassword: oldPassword,
+          newPassword: newPassword,
+        }),
+      });
       const result = await res.json();
       if (!res.ok) {
         console.log(result);
@@ -104,7 +98,7 @@ function Edit() {
     try {
       setLoadingName(true);
       const response = await fetch(
-        `https://tahfeeth-system.onrender.com/user/update-username`,
+        `http://localhost:5000/user/update-username`,
         {
           method: "PUT",
           headers: {

@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { HashLink } from "react-router-hash-link";
-import { AiFillHome } from "react-icons/ai";
-import { IoMdInformationCircle } from "react-icons/io";
+import { AiOutlineMenu } from "react-icons/ai";
 
-import { FaChalkboardTeacher } from "react-icons/fa";
-import { FaRegMessage } from "react-icons/fa6";
-import { RiLoginBoxLine } from "react-icons/ri";
 import { LiaUserPlusSolid } from "react-icons/lia";
 import Logo from "./Logo";
 import { Link, useNavigate } from "react-router-dom";
@@ -23,6 +19,7 @@ function Links({ isLogin, onSetIsLogin }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [status, setStatus] = useState(isLogin);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     const isLoggedInStatus = JSON.parse(localStorage.getItem("status"));
@@ -58,56 +55,84 @@ function Links({ isLogin, onSetIsLogin }) {
   return (
     <div className="fixed top-0 right-0 z-40 h-24 py-6 bg-[#fff] px-6 flex items-center justify-between w-full overflow-hidden">
       <Logo />
-      <div className="flex items-center justify-between flex-col h-full  overflow-hidden">
-        <ul className="flex items-center justify-center gap-4">
-          <li className={`text-2xl font-medium pb-2`}>
+      <div className="flex items-center justify-between flex-col h-full   overflow-hidden">
+        <ul
+          className={`
+          overflow-hidden
+          transition-all
+          h-auto
+          duration-300
+          flex
+          gap-6
+
+          md:flex-row
+          md:items-center
+          md:justify-center
+          md:bg-transparent
+          md:w-auto
+          md:relative
+          md:top-0
+          md:max-h-auto
+          md:py-6
+          md:text-[#0b1423]
+      
+
+          flex-col 
+        bg-[#6d727b]
+          w-screen 
+          fixed
+          top-24 
+          pl-8
+           items-start justify-start 
+          ${isOpen ? "max-h-[40rem] py-8" : "max-h-0"}
+          text-white
+
+          
+          `}
+        >
+          <li className={`text-2xl font-medium`}>
             <HashLink smooth to="/#home">
-              <div className="block lg:hidden">
-                <AiFillHome className="w-8 h-16 text-bold" />
-              </div>
-              <p className="hidden lg:block">Home</p>
+              Home
             </HashLink>
           </li>
-          <li className={`text-2xl font-medium pb-2`}>
+          <li className={`text-2xl font-medium`}>
             <HashLink smooth to="/#about">
-              <div className="block lg:hidden">
-                <IoMdInformationCircle className="w-8 h-16 text-bold" />
-              </div>
-              <p className="hidden lg:block">About</p>
+              <p>About</p>
             </HashLink>
           </li>
-          <li className={`text-2xl font-medium pb-2`}>
-            <HashLink smooth to="/#teachers">
-              <div className="block lg:hidden">
-                <FaChalkboardTeacher className="w-8 h-16 text-bold" />
-              </div>
-              <p className="hidden lg:block">Products</p>
+          <li className={`text-2xl font-medium`}>
+            <HashLink smooth to="/#products">
+              <p>Products</p>
             </HashLink>
           </li>
-          <li className={`text-2xl font-medium pb-2`}>
+          <li className={`text-2xl font-medium`}>
             <HashLink smooth to="/#contact">
-              <div className="block lg:hidden">
-                <FaRegMessage className="w-8 h-16 text-bold" />
-              </div>
-              <p className="hidden lg:block">Contact</p>
+              <p>Contact</p>
+            </HashLink>
+          </li>
+          <li className={`text-2xl font-medium`}>
+            <HashLink to={"/register?mode=signup"}>
+              <button
+                className="bg-[#ec981a] hover:bg-[#d48917] transition-colors h-11 rounded-md px-2 text-center 
+              text-white text-2xl"
+              >
+                Signup{" "}
+              </button>
             </HashLink>
           </li>
         </ul>
         {!isLogin ? (
           <div className="flex flex-col items-center justify-center gap-8">
             <Link to={"/register?mode=login"}>
-              <div className="block lg:hidden">
-                <RiLoginBoxLine className="w-8 h-16 text-bold text-[#C1A98D] hover:text-[#9F8565] transition-colors" />
-              </div>
               <button className="text-white text-2xl hidden lg:block">
-                تسجيل الدخول
+                Login
               </button>
             </Link>
             <HashLink to={"/register?mode=signup"}>
               <div className="block lg:hidden">
-                <LiaUserPlusSolid className="w-8 h-16 text-bold pb-2 border-white text-[#9F8565] hover:text-[#8a7762] transition-colors " />
+                <LiaUserPlusSolid className="w-8 h-16 text-bold border-white text-[#ec981a] hover:text-[#8a7762] transition-colors " />
               </div>
-              <button className="bg-[#9F8565] hover:bg-[#8a7762] transition-colors px-5 py-3 w-48 text-white text-2xl hidden lg:block">
+              <button className="bg-[#ec981a] hover:bg-[#8a7762] transition-colors px-5 py-3 w-48 text-white text-2xl hidden lg:block">
                 Signup{" "}
               </button>
             </HashLink>
@@ -118,7 +143,7 @@ function Links({ isLogin, onSetIsLogin }) {
               to="/details"
               className=" text-center text-4xl lg:text-lg p-2 border-none outline-none cursor-pointer rounded-lg transition-colors flex items-center justify-center text-white hover:text-green-300"
             >
-              <span className="hidden lg:block">حسابي</span>
+              <span>profile</span>
               <div className="block lg:hidden">
                 <CgProfile />
               </div>
@@ -127,21 +152,21 @@ function Links({ isLogin, onSetIsLogin }) {
               to="/settings"
               className="text-center text-4xl lg:text-lg p-2 border-none outline-none cursor-pointer rounded-lg transition-colors flex items-center justify-center text-white hover:text-green-300"
             >
-              <span className="hidden lg:block">لوحة التحكم</span>
+              <span>Dashboard</span>
               <div className="block lg:hidden">
                 <RxGear />
               </div>
             </Link>
             {loading ? (
-              <p className="text-center text-[#ececec] text-2xl">تحميل ...</p>
+              <p className="text-center text-[#ececec] text-2xl">loading...</p>
             ) : error ? (
               <div className="text-center text-[#ececec] text-xl">
-                <span>خطأ داخلي</span>
+                <span>Internal error</span>
                 <p
                   className="text-[0.5rem] sm:text-[0.75rem] cursor-pointer"
                   onClick={logout}
                 >
-                  سجل خروج مرة أخرى
+                  logout again
                 </p>
               </div>
             ) : (
@@ -150,7 +175,7 @@ function Links({ isLogin, onSetIsLogin }) {
                 onClick={logout}
                 title="تسجيل الخروج"
               >
-                <span className="hidden lg:block">تسجيل الخروج</span>
+                <span>تسجيل الخروج</span>
                 <div className="block lg:hidden">
                   <GiEntryDoor />
                 </div>
@@ -158,6 +183,12 @@ function Links({ isLogin, onSetIsLogin }) {
             )}
           </div>
         )}
+      </div>
+      <div
+        className="text-2xl block md:hidden"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <AiOutlineMenu className="text-2xl block md:hidden" />
       </div>
     </div>
   );

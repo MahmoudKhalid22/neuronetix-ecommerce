@@ -102,7 +102,7 @@ const verificationEmail = async (req, res) => {
     if (!tokenVerified) {
       return res.send({ error: "Your token has been expired" });
     }
-    res.redirect("https://tahfeeth.vercel.app/verified");
+    res.redirect("http://localhost:5000/verified");
   } catch (e) {
     res.status(500).send(e);
   }

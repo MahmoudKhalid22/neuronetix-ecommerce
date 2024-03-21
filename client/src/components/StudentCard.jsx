@@ -10,7 +10,7 @@ const StudentCard = ({ student, teacherToken }) => {
     try {
       setLoading(true);
       const res = await fetch(
-        "https://tahfeeth-system.onrender.com/user/student/" + student._id,
+        "http://localhost:5000/user/student/" + student._id,
         {
           method: "DELETE",
           headers: {

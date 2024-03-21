@@ -16,32 +16,28 @@ function Contact() {
   const handleSendMsg = async (e) => {
     e.preventDefault();
     try {
-      setLoading(false);
-      const response = await fetch(
-        "https://tahfeeth-system.onrender.com/user/message",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            name: message.name.length > 1 ? message.name : null,
-            email: message.name.length > 1 ? message.email : null,
-            msg: message.name.length > 1 ? message.msg : null,
-          }),
-        }
-      );
       setLoading(true);
+      const response = await fetch("http://localhost:5000/message", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: message.name.length > 1 ? message.name : null,
+          email: message.name.length > 1 ? message.email : null,
+          msg: message.name.length > 1 ? message.msg : null,
+        }),
+      });
       const result = await response.json();
 
-      // console.log(result);
+      console.log(result);
       if (!response.ok) {
         throw new Error(result.error);
       }
       setError(false);
       setRes({ ...res, msg: result.msg });
     } catch (err) {
-      // console.log(err.message);
+      console.log(err.message);
       setError(true);
     } finally {
       setLoading(false);
@@ -61,11 +57,11 @@ function Contact() {
     <>
       <div
         id="contact"
-        className="flex items-center justify-center flex-row-reverse py-16 mt-16 gap-12 mr-16 lg:mr-[16rem] overflow-x-hidden"
+        className="flex items-center justify-center flex-row-reverse py-32 gap-20"
       >
         <div className="w-80 lg:w-[25.75rem] h-[33.875rem] flex-1/2 md:block hidden">
           <img
-            src="/assets/form.jpg"
+            src="/assets/bg-1.png"
             alt="form bg"
             className="w-full rounded-3xl h-full object-cover "
           />
@@ -76,7 +72,7 @@ function Contact() {
         >
           <input
             type="text"
-            placeholder="الاسم"
+            placeholder="name"
             className="h-16 rounded-lg px-4 lg:px-8  py-2 lg:py-4 text-lg lg:text-2xl"
             required={true}
             value={message.name}
@@ -84,7 +80,7 @@ function Contact() {
           />
           <input
             type="email"
-            placeholder="البريد الإلكتروني"
+            placeholder="email"
             className="h-16 rounded-lg px-4 lg:px-8  py-2 lg:py-4 text-lg lg:text-2xl"
             required={true}
             value={message.email}
@@ -92,25 +88,28 @@ function Contact() {
           />
           <textarea
             type="text"
-            placeholder="الرسالة"
+            placeholder="Message"
             className="h-[16.9375rem] rounded-lg px-4 lg:px-8  py-2 lg:py-4 text-lg lg:text-2xl"
             required={true}
             value={message.msg}
             onChange={(e) => setMessage({ ...message, msg: e.target.value })}
           />
-          <button className="rounded-lg bg-[#948366] hover:bg-[#685c47] transition-colors text-white h-16   px-4 lg:px-8  py-2 lg:py-4 text-lg lg:text-2xl">
-            {loading ? "تحميل ..." : "إرسال"}
+          <button
+            className="rounded-lg bg-[#ec981a] hover:bg-[#d48917] transition-colors text-white h-16   px-4 lg:px-8  py-2 lg:py-4 text-lg lg:text-2xl"
+            disabled={loading}
+          >
+            {loading ? "loading ..." : "send"}
           </button>
         </form>
       </div>
 
       {time && (
         <p
-          className={`flex items-center justify-center flex-row-reverse mt-4 gap-12 mr-16 lg:mr-[16rem] overflow-hidden text-3xl font-semibold  ${
-            error ? "text-red-600" : "text-[#948366]"
+          className={`flex items-center justify-center flex-row-reverse gap-12  text-3xl font-semibold  ${
+            error ? "text-red-600" : "text-[#ec981a]"
           } `}
         >
-          {error ? "خطأ داخلي في السيرفر، من فضلك حاول في وقت لاحق" : res.msg}
+          {error ? "Internal server error, please try again later" : res.msg}
         </p>
       )}
     </>
