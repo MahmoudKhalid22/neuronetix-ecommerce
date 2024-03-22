@@ -1,4 +1,5 @@
 const Message = require("../model/Message");
+const { findAllMessages } = require("../dbQueries/queries");
 
 const messageForm = async (req, res) => {
   try {
@@ -43,7 +44,7 @@ const getOneMessage = async (req, res) => {
 const readMessage = async (req, res) => {
   try {
     const messageId = req.params.id;
-    const isAdmin = req.user[0].role === "isAdmin";
+    const isAdmin = req.user[0].role === "admin";
     if (!isAdmin)
       return res.status(400).send({ error: "you're not the admin" });
     const msg = await Message.findByIdAndUpdate(

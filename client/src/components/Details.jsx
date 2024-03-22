@@ -81,7 +81,6 @@ function Details({ onSetIsLogin }) {
               ? "user"
               : ""}
           </p>
-
           {userData?.role === "admin" && (
             <>
               <Link
@@ -96,21 +95,12 @@ function Details({ onSetIsLogin }) {
               >
                 get products
               </Link>
-            </>
-          )}
-
-          {userData?.role === "teacher" && (
-            <>
-              <p className="text-center ml-4 text-xl sm:text-3xl font-bold text-[#43766C]">
-                {userData?.price} ج
-              </p>
-
-              <p className="text-center ml-2 text-md sm:text-xl   text-[#43766C] w-[95%] mt-4 sm:mt-12 leading-loose font-semibold">
-                وصف طريقة التعليم
-              </p>
-              <p className="text-center ml-2 text-md sm:text-xl   text-[#43766C] lg:w-[50rem] w-[90%] leading-loose">
-                {userData?.information}
-              </p>
+              <Link
+                to="/messages"
+                className="bg-[#0b1423] hover:bg-[#0b1423] transition-colors duration-300 text-[#f5f5f5] rounded-sm px-4 py-2"
+              >
+                get messages
+              </Link>
             </>
           )}
         </div>

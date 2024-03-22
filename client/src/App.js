@@ -13,6 +13,7 @@ import Edit from "./pages/Edit";
 import AddProduct from "./pages/AddProduct";
 import Products from "./components/Products";
 import Product from "./pages/Product";
+import Messages from "./pages/Messages";
 
 const initialStatus = JSON.parse(localStorage.getItem("status"));
 
@@ -46,6 +47,7 @@ function App() {
             <Route path="product/:id" element={<Product />} />
           </Route>
           <Route path="/add-product" element={<AddProduct />} />
+          <Route path="/messages" element={<Messages />} />
           <Route path="/settings">
             <Route index element={<Settings />} />
             <Route path="edit" element={<Edit />} />

@@ -38,7 +38,7 @@ function Products() {
         Products
       </h3>
       {!error && !loading && (
-        <div className="flex flex-wrap gap-4 lg:gap-8 justify-start">
+        <div className="flex flex-wrap gap-4 lg:gap-8 justify-center">
           {products.length > 0 ? (
             products?.map((product) => (
               <ProductCard

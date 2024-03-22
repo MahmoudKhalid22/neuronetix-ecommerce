@@ -63,49 +63,6 @@ const Settings = () => {
       setLoading(false);
     }
   };
-  const getTeachers = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch(
-        "https://typastore.up.railway.app/user/admin/teachers",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + adminToken,
-          },
-        }
-      );
-      const result = await response.json();
-      dispatch({ type: "teachers", payload: result });
-    } catch (err) {
-      setError(true);
-    } finally {
-      setLoading(false);
-    }
-  };
-  const getStudents = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch(
-        "https://typastore.up.railway.app/user/students",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + teacherToken,
-          },
-        }
-      );
-      const students = await response.json();
-      dispatch({ type: "students", payload: students?.students });
-    } catch (err) {
-      console.log(err);
-      setError(true);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   if (!data || data.length === 0) {
     return (
@@ -132,7 +89,6 @@ const Settings = () => {
               <button
                 className="bg-[#43766C] hover:bg-[#365e56] transition-colors duration-300 text-white px-4 py-2 text-lg"
                 onClick={() => {
-                  getTeachers();
                   dispatch({ type: "allTeachers" });
                 }}
               >
@@ -203,9 +159,7 @@ const Settings = () => {
             <div>
               <button
                 className="bg-[#43766C] hover:bg-[#365e56] transition-colors duration-300 text-white px-4 py-2 text-lg"
-                onClick={() => {
-                  getStudents();
-                }}
+                onClick={() => {}}
               >
                 عرض كل الطلبة
               </button>
