@@ -1,10 +1,8 @@
 import React, { useReducer, useState } from "react";
 import UpdateForm from "../components/UpdateForm";
 import AddUserForm from "../components/AddUserForm";
-import StudentCard from "../components/StudentCard";
 import { Link } from "react-router-dom";
 import Spinner from "../components/utilsComponents/Spinner";
-import Card from "../components/Teacher/Card";
 
 const data = JSON.parse(localStorage.getItem("data"));
 
@@ -137,7 +135,7 @@ const Settings = () => {
               >
                 عرض كل المعلمين
               </button>
-              {error ? (
+              {/* {error ? (
                 <p className="text-red-600 font-semibold text-2xl mt-6">
                   حدث بعض الخطأ
                 </p>
@@ -146,24 +144,24 @@ const Settings = () => {
                   <Spinner />
                 </div>
               ) : (
-                state.info && (
-                  <div className="flex gap-6 flex-wrap mt-4">
-                    {state.teachers?.map((user) => (
-                      <Card
-                        key={user?._id}
-                        name={user?.name}
-                        role={user?.role}
-                        professional={user?.professional}
-                        avatar={user?.avatar}
-                        price={user?.price}
-                        admin={true}
-                        id={user?._id}
-                        adminToken={adminToken}
-                      />
-                    ))}
-                  </div>
+                // state.info && (
+                //   <div className="flex gap-6 flex-wrap mt-4">
+                //     {state.teachers?.map((user) => (
+                //     //   <Card
+                //     //     key={user?._id}
+                //     //     name={user?.name}
+                //     //     role={user?.role}
+                //     //     professional={user?.professional}
+                //     //     avatar={user?.avatar}
+                //     //     price={user?.price}
+                //     //     admin={true}
+                //     //     id={user?._id}
+                //     //     adminToken={adminToken}
+                //     //   />
+                //     // ))}
+                //   </div>
                 )
-              )}
+              )} */}
             </div>
             <div>
               <button
@@ -209,7 +207,7 @@ const Settings = () => {
                 عرض كل الطلبة
               </button>
               <div className="flex gap-2 w-full flex-wrap ">
-                {loading ? (
+                {/* {loading ? (
                   <p className="text-xl font-semibold">تحميل...</p>
                 ) : error ? (
                   <p className="text-red-600 text-xl font-semibold">
@@ -224,7 +222,7 @@ const Settings = () => {
                       teacherToken={teacherToken}
                     />
                   ))
-                )}
+                )} */}
               </div>
             </div>
             <div>

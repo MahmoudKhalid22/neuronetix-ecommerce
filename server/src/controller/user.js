@@ -14,8 +14,6 @@ const User = require("../model/user");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
-// END OF AUTHENTICATION
-
 // FOR ADMIN
 
 const addUser = async (req, res) => {
@@ -71,9 +69,9 @@ const getOneUser = async (req, res) => {
 // FOR USER AND ADMIN(as a user)
 
 const newUser = async (req, res) => {
-  const { name, email, password, role, professional } = req.body;
-  if (!name || !email || !password || !role) {
-    return res.status(400).send("يجب إدخال البيانات أولا");
+  const { name, email, password } = req.body;
+  if (!name || !email || !password) {
+    return res.status(400).send({ error: "Enter your data first" });
   }
   const user = new User({ ...req.body });
   try {
@@ -86,7 +84,7 @@ const newUser = async (req, res) => {
     );
     await sendVerificationEmail(req.body.email, token);
     res.send({
-      msg: "تم إنشاء الحساب بنجاح ، من قضلك راجع بريدك الإلكتروني لتفعيل الحساب",
+      msg: "Account has been registered successfully! please check your email to verify your account",
     });
   } catch (err) {
     res.status(500).send({ err: err.message });
@@ -102,7 +100,7 @@ const verificationEmail = async (req, res) => {
     if (!tokenVerified) {
       return res.send({ error: "Your token has been expired" });
     }
-    res.redirect("http://localhost:5000/verified");
+    res.redirect("http://localhost:3000/verified");
   } catch (e) {
     res.status(500).send(e);
   }

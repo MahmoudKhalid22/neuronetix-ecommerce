@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
-import Card from "./Teacher/Card";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
+import ProductCard from "./ProductCard";
 
 function Products() {
+  const [searchParams] = useSearchParams();
+  const isAdmin = searchParams.get("admin");
+
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -10,9 +13,9 @@ function Products() {
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const response = await fetch("http://localhost:5000/product");
         setLoading(true);
         setError(false);
+        const response = await fetch("http://localhost:5000/product");
         const prds = await response.json();
         if (!response.ok) {
           throw new Error(prds);
@@ -36,15 +39,10 @@ function Products() {
         <div className="flex flex-wrap gap-4 lg:gap-8 justify-start">
           {products.length > 0 ? (
             products?.map((product) => (
-              <Card
+              <ProductCard
+                product={product}
                 key={product._id}
-                id={product._id}
-                name={product.name}
-                role={product.role}
-                professional={product.professional}
-                price={product?.price}
-                avatar={product?.avatar}
-                multiple={true}
+                isAdmin={isAdmin}
               />
             ))
           ) : (

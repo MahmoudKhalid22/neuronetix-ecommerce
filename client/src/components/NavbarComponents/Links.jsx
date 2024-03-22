@@ -110,44 +110,32 @@ function Links({ isLogin, onSetIsLogin }) {
               <p>Contact</p>
             </HashLink>
           </li>
-          <li className={`text-2xl font-medium`}>
-            <HashLink to={"/register?mode=signup"}>
-              <button
-                className="bg-[#ec981a] hover:bg-[#d48917] transition-colors h-11 rounded-md px-2 text-center 
+          {!isLogin ? (
+            <li className={`text-2xl font-medium`}>
+              <HashLink to={"/register?mode=signup"}>
+                <button
+                  className="bg-[#ec981a] hover:bg-[#d48917] transition-colors h-11 rounded-md px-2 text-center 
               text-white text-2xl"
+                >
+                  Signup{" "}
+                </button>
+              </HashLink>
+            </li>
+          ) : (
+            <li>
+              <Link
+                to="/details"
+                className=" text-center text-4xl lg:text-lg p-2 border-none outline-none cursor-pointer rounded-lg transition-colors flex items-center justify-center text-[#6d727b] "
               >
-                Signup{" "}
-              </button>
-            </HashLink>
-          </li>
+                <div className="text-3xl">
+                  <CgProfile />
+                </div>
+              </Link>
+            </li>
+          )}
         </ul>
-        {!isLogin ? (
-          <div className="flex flex-col items-center justify-center gap-8">
-            <Link to={"/register?mode=login"}>
-              <button className="text-white text-2xl hidden lg:block">
-                Login
-              </button>
-            </Link>
-            <HashLink to={"/register?mode=signup"}>
-              <div className="block lg:hidden">
-                <LiaUserPlusSolid className="w-8 h-16 text-bold border-white text-[#ec981a] hover:text-[#8a7762] transition-colors " />
-              </div>
-              <button className="bg-[#ec981a] hover:bg-[#8a7762] transition-colors px-5 py-3 w-48 text-white text-2xl hidden lg:block">
-                Signup{" "}
-              </button>
-            </HashLink>
-          </div>
-        ) : (
+        {!isLogin && (
           <div className="flex flex-col gap-4">
-            <Link
-              to="/details"
-              className=" text-center text-4xl lg:text-lg p-2 border-none outline-none cursor-pointer rounded-lg transition-colors flex items-center justify-center text-white hover:text-green-300"
-            >
-              <span>profile</span>
-              <div className="block lg:hidden">
-                <CgProfile />
-              </div>
-            </Link>
             <Link
               to="/settings"
               className="text-center text-4xl lg:text-lg p-2 border-none outline-none cursor-pointer rounded-lg transition-colors flex items-center justify-center text-white hover:text-green-300"

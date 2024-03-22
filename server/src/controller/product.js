@@ -25,6 +25,7 @@ const getOneProduct = async (req, res) => {
 
 const createItem = async (req, res) => {
   const isAdmin = req.user[0].role === "admin";
+
   if (isAdmin) {
     const product = new Product(req.body);
     try {
@@ -42,6 +43,7 @@ const uploadItemImg = async (req, res) => {
   try {
     const isAdmin = req.user[0].role === "admin";
     const productId = req.params.id;
+
     if (!isAdmin)
       return res.status(400).send({ error: "you're not the admin" });
     const product = await Product.find({ _id: productId });
@@ -50,7 +52,7 @@ const uploadItemImg = async (req, res) => {
     const base64Data = req.file.buffer.toString("base64");
     imgsrc = `data:${req.file.mimetype};base64,${base64Data}`;
     product.img = imgsrc;
-    await product.save();
+    await Product.updateOne({ _id: productId }, { img: imgsrc }, { new: true });
     res.send(product);
   } catch (err) {
     res.status(500).send({ err: err.message });

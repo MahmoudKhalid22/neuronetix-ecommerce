@@ -9,11 +9,12 @@ function Form({ onSetIsLogin }) {
   const [searchParams] = useSearchParams();
   const isLogin = searchParams.get("mode") === "login";
 
+  // user data
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
 
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -36,6 +37,7 @@ function Form({ onSetIsLogin }) {
           password: password,
         }),
       });
+      console.log(await response.json());
 
       if (!response.ok) {
         setLoading(false);
@@ -179,7 +181,10 @@ function Form({ onSetIsLogin }) {
         error ? error : ""
       }`}</p>
       {loading && <Spinner />}
-      <button className="p-2 border-slate-700  text-xl md:text-2xl cursor-pointer rounded-md transition-colors flex gap-2 items-center justify-center w-full md:h-16 bg-[#ec981a] hover:bg-[#d48917] text-[#fff] duration-300">
+      <button
+        disabled={loading}
+        className="p-2 border-slate-700  text-xl md:text-2xl cursor-pointer rounded-md transition-colors flex gap-2 items-center justify-center w-full md:h-16 bg-[#ec981a] hover:bg-[#d48917] text-[#fff] duration-300"
+      >
         <GiExitDoor />
         {isLogin ? <span>دخول</span> : <span>تسجيل</span>}
       </button>
@@ -193,7 +198,7 @@ function Form({ onSetIsLogin }) {
           </>
         ) : (
           <>
-            <span>Already have an account! </span>
+            <span className="text-center">Already have an account! </span>
             <Link to="/register?mode=login" className="underline">
               Login!
             </Link>

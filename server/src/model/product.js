@@ -4,8 +4,7 @@ const User = require("./user");
 const productSchema = new mongoose.Schema(
   {
     img: {
-      type: Buffer,
-      required: true,
+      type: String,
     },
     name: {
       type: String,

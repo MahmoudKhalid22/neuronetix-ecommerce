@@ -1,18 +1,18 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { useEffect, useState } from "react";
 import "./App.css";
 import Root from "./pages/Root";
 import Home from "./pages/Home";
 import Details from "./components/Details";
-import Student from "./pages/Student";
 import Register from "./pages/Register";
-import Teacher from "./components/Teacher/Teacher";
-import TeacherPage from "./pages/TeacherPage";
 import Verification from "./pages/Verification";
-import { useEffect, useState } from "react";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 import Verified from "./pages/Verified";
 import Edit from "./pages/Edit";
+import AddProduct from "./pages/AddProduct";
+import Products from "./components/Products";
+import Product from "./pages/Product";
 
 const initialStatus = JSON.parse(localStorage.getItem("status"));
 
@@ -41,14 +41,16 @@ function App() {
             path="/register"
             element={<Register onSetIsLogin={setIsLogin} />}
           />
-          <Route path="/details/:id" element={<Student />} />
-          <Route path="/teacher/:id" element={<Teacher />} />
-          <Route path="/teacher/:id" element={<TeacherPage />} />
+          <Route path="/products">
+            <Route index element={<Products />} />
+            <Route path="product/:id" element={<Product />} />
+          </Route>
+          {/* <Route path="/add-product" element={<AddProduct />} />
           <Route path="/settings">
             <Route index element={<Settings />} />
             <Route path="edit" element={<Edit />} />
           </Route>
-          <Route path="*" element={<NotFound />} />
+          <Route path="*" element={<NotFound />} /> */}
         </Route>
       </Routes>
     </BrowserRouter>

@@ -28,12 +28,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
       enum: ["admin", "user"],
+      default: "user",
     },
     address: {
       type: String,
-      required: function () {
-        return this.role === "user";
-      },
     },
     verified: {
       type: Boolean,
@@ -41,7 +39,7 @@ const userSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ["active, blocked"],
+      enum: ["active", "blocked"],
       default: "active",
     },
     avatar: {
@@ -120,13 +118,13 @@ userSchema.methods.createRefreshToken = async function () {
 userSchema.statics.findByCredentials = async function (email, password) {
   const user = await User.findOne({ email });
 
-  if (!user) throw new Error("الاسم غير موجود");
+  if (!user) throw new Error("invalid credentials");
 
-  if (!user.verified) throw new Error("يجب تفعيل الحساب أولا");
+  if (!user.verified) throw new Error("verify your account first");
 
   const isMatch = await bcrypt.compare(password, user.password);
 
-  if (!isMatch) throw new Error("كلمة السر غير صحيحة");
+  if (!isMatch) throw new Error("invalid credentials");
   return user;
 };
 

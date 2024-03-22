@@ -25,7 +25,7 @@ router.post("/create-product", auth, createItem);
 
 const upload = multer({});
 router.post(
-  "/upload-product-image",
+  "/upload-product-image/:id",
   auth,
   upload.single("product"),
   uploadItemImg
