@@ -2,11 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+/* 
+  primary color => f5f5f5
+  secondry color => fff
+  button color (dark green) => 6d727b
+  another button color (yellow) => ec981a
+  another color => 0b1423
+*/
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Tajawal", sans-serif;
+  font-family: "Lato", sans-serif;
   scroll-behavior: smooth;
 }
 #root {
@@ -14,7 +22,7 @@
 }
 body {
   scroll-behavior: smooth;
-  background-color: #ececec;
+  background-color: #f5f5f5;
   font-family: "Tajawal", sans-serif;
   overflow-x: hidden;
   position: relative;
