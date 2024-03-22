@@ -63,7 +63,8 @@ function Contact() {
           <img
             src="/assets/bg-1.png"
             alt="form bg"
-            className="w-full rounded-3xl h-full object-cover "
+            className="w-full rounded-3xl h-full object-cover"
+            loading="lazy"
           />
         </div>
         <form

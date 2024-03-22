@@ -54,11 +54,11 @@ function Products() {
           )}
         </div>
       )}
-      {!error && !loading && products.length > 6 && (
+      {/* {!error && !loading && products.length > 6 && (
         <button className="bg-[#43766C] hover:bg-[#2f534c] transition-colors text-md sm:text-xl block mx-auto px-4 py-2 font-semibold text-white my-8">
           <Link to="/teacher">More...</Link>
         </button>
-      )}
+      )} */}
       {!error && loading && (
         <p className="text-center font-semibold text-3xl text-[#43766C]">
           loading...
