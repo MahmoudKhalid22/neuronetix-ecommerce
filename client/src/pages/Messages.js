@@ -17,7 +17,7 @@ function Messages() {
   useEffect(() => {
     const getMessages = async () => {
       try {
-        const res = await fetch("http://localhost:5000/message", {
+        const res = await fetch("https://typastore.up.railway.app/message", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -41,13 +41,16 @@ function Messages() {
 
   const markAsRead = async (id) => {
     try {
-      const res = await fetch("http://localhost:5000/message/" + id, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + adminToken,
-        },
-      });
+      const res = await fetch(
+        "https://typastore.up.railway.app/message/" + id,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + adminToken,
+          },
+        }
+      );
       const result = await res.json();
       if (!res.ok) {
         throw new Error(result);
