@@ -134,7 +134,7 @@ function Links({ isLogin, onSetIsLogin }) {
             </li>
           )}
         </ul>
-        {!isLogin && (
+        {/* {!isLogin && (
           <div className="flex flex-col gap-4">
             <Link
               to="/settings"
@@ -170,7 +170,7 @@ function Links({ isLogin, onSetIsLogin }) {
               </button>
             )}
           </div>
-        )}
+        )} */}
       </div>
       <div
         className="text-2xl block md:hidden"

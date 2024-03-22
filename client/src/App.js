@@ -45,12 +45,12 @@ function App() {
             <Route index element={<Products />} />
             <Route path="product/:id" element={<Product />} />
           </Route>
-          {/* <Route path="/add-product" element={<AddProduct />} />
+          <Route path="/add-product" element={<AddProduct />} />
           <Route path="/settings">
             <Route index element={<Settings />} />
             <Route path="edit" element={<Edit />} />
           </Route>
-          <Route path="*" element={<NotFound />} /> */}
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </BrowserRouter>
