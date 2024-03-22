@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { GiExitDoor } from "react-icons/gi";
 import { FaGooglePlus, FaFacebook } from "react-icons/fa";
+import Spinner from "../utilsComponents/Spinner";
+import { MdOutlineRemoveRedEye } from "react-icons/md";
 
 function Form({ onSetIsLogin }) {
   const [searchParams] = useSearchParams();
@@ -10,10 +12,7 @@ function Form({ onSetIsLogin }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("");
-  const [professional, setProfessional] = useState(false);
-  const [price, setPrice] = useState(0);
-  const [information, setInformation] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -35,10 +34,6 @@ function Form({ onSetIsLogin }) {
           name: name,
           email: email,
           password: password,
-          role: role,
-          professional: professional ? professional : null,
-          price: price ? price : 0,
-          information: information ? information : "",
         }),
       });
 
@@ -51,26 +46,20 @@ function Form({ onSetIsLogin }) {
       setName("");
       setEmail("");
       setPassword("");
-      setRole("");
       setLoading(false);
-
-      // const dataUser = await response.json();
-      // console.log(dataUser);
       navigate("/verify");
     } catch (err) {
       // console.log(err.message);
 
       setError(
         err.message[0] === "E"
-          ? "هذا البريد الإلكتروني موجود مسبقا ، حاول ببريد إلكتروني آخر"
+          ? "This email is already found, please try with another one"
           : err.message
       );
     } finally {
       setLoading(false);
     }
   };
-
-  // console.log(isLogin);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -125,9 +114,7 @@ function Form({ onSetIsLogin }) {
   return (
     <form
       className={`bg-none flex items-center
-    justify-center flex-col gap-6 p-4 ${
-      role === "teacher" && !isLogin ? "mt-80" : "mt-8"
-    } rounded-tr-xl rounded-br-xl w-full md:w-full md:h-[40rem]`}
+    justify-center flex-col gap-6 p-4 rounded-tr-xl rounded-br-xl w-full md:w-full md:h-[40rem]`}
       onSubmit={isLogin ? handleSubmit : newUser}
       style={{ width: "80%" }}
     >
@@ -135,7 +122,7 @@ function Form({ onSetIsLogin }) {
         <div className=" flex flex-row-reverse justify-between items-start w-full">
           <input
             type="text"
-            placeholder="الاسم"
+            placeholder="Name"
             id="name"
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -145,7 +132,7 @@ function Form({ onSetIsLogin }) {
             className="hidden md:block text-[#43766C] text-2xl"
             htmlFor="name"
           >
-            الاسم
+            Name
           </label>
         </div>
       )}
@@ -154,7 +141,7 @@ function Form({ onSetIsLogin }) {
           type="text"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="البريد الإلكتروني"
+          placeholder="email"
           id="email"
           className="text-md  border py-4 md:text-xl rounded-md border-slate-700  px-3 md:w-[50%] lg:w-[58%]  w-[120%] md:h-16"
         />
@@ -162,129 +149,53 @@ function Form({ onSetIsLogin }) {
           className="hidden md:block text-[#43766C] text-2xl"
           htmlFor="email"
         >
-          البريد الإلكتروني
+          email{" "}
         </label>
       </div>
-      <div className=" flex flex-row-reverse justify-between items-start w-full">
+      <div className="relative flex flex-row-reverse justify-between items-start w-full">
         <input
-          type="password"
+          type={`${showPassword ? "text" : "password"}`}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          placeholder="كلمة السر"
+          placeholder="password"
           id="pass"
           className="text-md  border py-4 md:text-xl rounded-md border-slate-700  px-3 md:w-[50%] lg:w-[58%]  w-[120%] md:h-16"
         />
+        <span
+          className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer text-3xl"
+          onClick={() => setShowPassword(!showPassword)}
+        >
+          <MdOutlineRemoveRedEye />
+        </span>
         <label
           className="hidden md:block text-[#43766C] text-2xl"
           htmlFor="pass"
         >
-          كلمة السر
+          password{" "}
         </label>
       </div>
-      {!isLogin && (
-        <div className=" flex flex-row-reverse justify-between items-start w-full">
-          <select
-            type="text"
-            placeholder="الاسم"
-            id="role"
-            className="text-md  border py-4 md:text-xl rounded-md border-slate-700  px-3 md:w-[50%] lg:w-[58%]  w-[120%] md:h-16"
-            onChange={(e) => setRole(e.target.value)}
-          >
-            <option>التسجيل ك</option>
-            <option value={"teacher"}>معلم</option>
-            <option value={"student"}>طالب</option>
-          </select>
-          <label
-            className="hidden md:block text-[#43766C] text-2xl"
-            htmlFor="role"
-          >
-            التسجيل كدورك
-          </label>
-        </div>
-      )}
-      {!isLogin && role === "teacher" && (
-        <div className=" flex flex-row-reverse justify-between items-start w-full">
-          <select
-            type="text"
-            placeholder="الاسم"
-            id="prof"
-            onChange={(e) => setProfessional(e.target.value)}
-            className="text-md  border py-4 md:text-xl rounded-md border-slate-700  px-3 md:w-[50%] lg:w-[58%]  w-[120%] md:h-16"
-          >
-            <option>هل أنت مجاز</option>
-            <option value={true}>نعم</option>
-            <option value={false}>لا</option>
-          </select>
-          <label
-            className="hidden md:block text-[#43766C] text-2xl"
-            htmlFor="prof"
-          >
-            هل أنت مجاز
-          </label>
-        </div>
-      )}
-      {!isLogin && role === "teacher" && (
-        <>
-          <div className=" flex flex-row-reverse justify-between items-start w-full">
-            <input
-              type="number"
-              placeholder="السعر"
-              step={10}
-              id="price"
-              onChange={(e) => setPrice(e.target.value)}
-              className="text-md  border py-4 md:text-xl rounded-md border-slate-700  px-3 md:w-[50%] lg:w-[58%]  w-[120%] md:h-16"
-            />
-            <label
-              className="hidden md:block text-[#43766C] text-2xl"
-              htmlFor="price"
-            >
-              مقدار الأجر الذي تتقاضاه{" "}
-            </label>
-          </div>
-          <div className=" flex flex-row-reverse justify-between items-start w-full">
-            <textarea
-              type="number"
-              placeholder="معلومات عن كيفية تعليم الطلاب"
-              step={10}
-              id="price"
-              onChange={(e) => setInformation(e.target.value)}
-              className="text-md  border py-4 md:text-xl rounded-md border-slate-700  px-3 md:w-[50%] lg:w-[58%]  w-[120%] md:h-60"
-            />
-            <label
-              className="hidden md:block text-[#43766C] text-2xl w-52"
-              htmlFor="price"
-            >
-              معلومات عن كيفية تعليم الطلاب{" "}
-            </label>
-          </div>
-        </>
-      )}
 
       <p className="text-2xl text-red-800 text-center md:text-red-500">{`${
         error ? error : ""
       }`}</p>
-      {loading && (
-        <p className="text-[#2b2121] md:text-[#43766C] text-2xl font-semibold">
-          تــحمــيل ...
-        </p>
-      )}
-      <button className="p-2 border-slate-700  text-xl md:text-2xl cursor-pointer rounded-md transition-colors flex gap-2 items-center justify-center w-full md:h-16 bg-[#9F8565] hover:bg-[#8a7762] text-[#ececec] duration-300">
+      {loading && <Spinner />}
+      <button className="p-2 border-slate-700  text-xl md:text-2xl cursor-pointer rounded-md transition-colors flex gap-2 items-center justify-center w-full md:h-16 bg-[#ec981a] hover:bg-[#d48917] text-[#fff] duration-300">
         <GiExitDoor />
         {isLogin ? <span>دخول</span> : <span>تسجيل</span>}
       </button>
       <p className="flex flex-col items-center md:flex-row gap-4 text-[#2b2121] md:text-[#43766C]">
         {isLogin ? (
           <>
-            <span>ليس لديك حساب بعد</span>
-            <Link to="/register?mode=signup" className="underline">
-              سجل حساب جديد الآن{" "}
+            <span>Don't have an account</span>
+            <Link to="/register?mode=signup" className="underline text-center">
+              register with new user now!
             </Link>
           </>
         ) : (
           <>
-            <span>لديك حساب بالفعل</span>
+            <span>Already have an account! </span>
             <Link to="/register?mode=login" className="underline">
-              سجل دخول الآن{" "}
+              Login!
             </Link>
           </>
         )}
@@ -292,10 +203,10 @@ function Form({ onSetIsLogin }) {
 
       <div className="flex gap-12">
         <button onClick={handleGoogleRegister}>
-          <FaGooglePlus className="text-5xl fill-green-600 " />
+          <FaGooglePlus className="text-5xl fill-[#ec981a] hover:fill-[#d48917] " />
         </button>
         <button>
-          <FaFacebook className="text-5xl fill-green-600 " />
+          <FaFacebook className="text-5xl  fill-[#ec981a] hover:fill-[#d48917] " />
         </button>
       </div>
     </form>

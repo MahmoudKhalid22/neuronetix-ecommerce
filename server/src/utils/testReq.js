@@ -5,7 +5,7 @@ const test = async () => {
       throw new Error(await response.json());
     }
   } catch (err) {
-    console.log(err.message);
+    // console.log(err.message);
   } finally {
     setTimeout(test, 600000);
   }
