@@ -128,9 +128,15 @@ function Links({ isLogin, onSetIsLogin }) {
             <li>
               <Link
                 to="/details"
-                className=" text-center text-4xl lg:text-lg p-2 border-none outline-none cursor-pointer rounded-lg transition-colors flex items-center justify-center text-[#6d727b] "
+                className=" border-none outline-none cursor-pointer rounded-lg transition-colors flex items-center justify-center text-[#f5f5f5] md:text-[#6d727b] "
               >
-                <div className="text-3xl">
+                <div
+                  className="block md:hidden bg-[#ec981a] hover:bg-[#d48917] transition-colors rounded-md px-2 text-center 
+              text-white text-2xl"
+                >
+                  Profile
+                </div>
+                <div className="text-3xl hidden md:block">
                   <CgProfile />
                 </div>
               </Link>
