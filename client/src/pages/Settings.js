@@ -48,7 +48,7 @@ const Settings = () => {
   const getData = async () => {
     try {
       setLoading(true);
-      const response = await fetch("http://localhost:5000/user/me", {
+      const response = await fetch("https://typa.onrender.com/user/me", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -67,7 +67,7 @@ const Settings = () => {
     try {
       setLoading(true);
       const response = await fetch(
-        "http://localhost:5000/user/admin/teachers",
+        "https://typa.onrender.com/user/admin/teachers",
         {
           method: "GET",
           headers: {
@@ -87,7 +87,7 @@ const Settings = () => {
   const getStudents = async () => {
     try {
       setLoading(true);
-      const response = await fetch("http://localhost:5000/user/students", {
+      const response = await fetch("https://typa.onrender.com/user/students", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

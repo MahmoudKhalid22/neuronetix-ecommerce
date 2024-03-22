@@ -19,7 +19,7 @@ function Card({
   const deleteTeacher = async () => {
     try {
       setLoading(true);
-      const response = await fetch("http://localhost:5000/user/" + id, {
+      const response = await fetch("https://typa.onrender.com/user/" + id, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

@@ -17,7 +17,7 @@ function Contact() {
     e.preventDefault();
     try {
       setLoading(true);
-      const response = await fetch("http://localhost:5000/message", {
+      const response = await fetch("https://typa.onrender.com/message", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

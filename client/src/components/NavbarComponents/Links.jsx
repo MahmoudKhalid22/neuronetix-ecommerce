@@ -29,7 +29,7 @@ function Links({ isLogin, onSetIsLogin }) {
   const logout = async () => {
     try {
       setLoading(true);
-      const response = await fetch("http://localhost:5000/user/logout", {
+      const response = await fetch("https://typa.onrender.com/user/logout", {
         method: "POST",
         headers: {
           Authorization: "Bearer " + data.accessToken,

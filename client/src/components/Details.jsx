@@ -15,7 +15,7 @@ function Details({ onSetIsLogin }) {
     const getUserData = async () => {
       try {
         setLoading(true);
-        const response = await fetch("http://localhost:5000/user/me/", {
+        const response = await fetch("https://typa.onrender.com/user/me/", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

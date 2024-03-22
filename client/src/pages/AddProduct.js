@@ -25,21 +25,24 @@ function AddProduct() {
     try {
       const adminToken = data.user.role === "admin" ? data.accessToken : null;
       setLoading(true);
-      const res = await fetch("http://localhost:5000/product/create-product", {
-        method: "POST",
+      const res = await fetch(
+        "https://typa.onrender.com/product/create-product",
+        {
+          method: "POST",
 
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + adminToken,
-        },
-        body: JSON.stringify({
-          name: name,
-          information: information,
-          price: price,
-          priceDiscount: discount,
-          rest: rest,
-        }),
-      });
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + adminToken,
+          },
+          body: JSON.stringify({
+            name: name,
+            information: information,
+            price: price,
+            priceDiscount: discount,
+            rest: rest,
+          }),
+        }
+      );
       const result = await res.json();
       if (!res.ok) {
         throw new Error(result);

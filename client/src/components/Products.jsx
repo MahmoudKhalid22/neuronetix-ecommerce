@@ -15,7 +15,7 @@ function Products() {
       try {
         setLoading(true);
         setError(false);
-        const response = await fetch("http://localhost:5000/product");
+        const response = await fetch("https://typa.onrender.com/product");
         const prds = await response.json();
         if (!response.ok) {
           throw new Error(prds);
