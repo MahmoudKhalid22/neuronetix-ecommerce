@@ -26,7 +26,7 @@ function AddUserForm({ role, admin, teachers }) {
     e.preventDefault();
     try {
       const response = await fetch(
-        "https://typa.onrender.com/user/teacher/signup",
+        "https://typastore.up.railway.app/teacher/signup",
         {
           method: "POST",
           body: JSON.stringify({

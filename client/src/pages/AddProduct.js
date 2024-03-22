@@ -26,7 +26,7 @@ function AddProduct() {
       const adminToken = data.user.role === "admin" ? data.accessToken : null;
       setLoading(true);
       const res = await fetch(
-        "https://typa.onrender.com/product/create-product",
+        "https://typastore.up.railway.app/product/create-product",
         {
           method: "POST",
 

@@ -26,17 +26,20 @@ function Form({ onSetIsLogin }) {
     setLoading(false);
     try {
       setLoading(true);
-      const response = await fetch("https://typa.onrender.com/user/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: name,
-          email: email,
-          password: password,
-        }),
-      });
+      const response = await fetch(
+        "https://typastore.up.railway.app/user/signup",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: name,
+            email: email,
+            password: password,
+          }),
+        }
+      );
       console.log(await response.json());
 
       if (!response.ok) {
@@ -70,16 +73,19 @@ function Form({ onSetIsLogin }) {
 
     try {
       setLoading(true);
-      const response = await fetch("https://typa.onrender.com/user/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        }),
-      });
+      const response = await fetch(
+        "https://typastore.up.railway.app/user/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: email,
+            password: password,
+          }),
+        }
+      );
       setError(null);
       if (!response.ok) {
         setLoading(false);
@@ -103,7 +109,7 @@ function Form({ onSetIsLogin }) {
   const handleGoogleRegister = async () => {
     try {
       const response = await fetch(
-        "https://typa.onrender.com/user/auth/google"
+        "https://typastore.up.railway.app/user/auth/google"
       );
       const result = await response.json();
       console.log(result);

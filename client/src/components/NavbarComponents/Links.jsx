@@ -29,12 +29,15 @@ function Links({ isLogin, onSetIsLogin }) {
   const logout = async () => {
     try {
       setLoading(true);
-      const response = await fetch("https://typa.onrender.com/user/logout", {
-        method: "POST",
-        headers: {
-          Authorization: "Bearer " + data.accessToken,
-        },
-      });
+      const response = await fetch(
+        "https://typastore.up.railway.app/user/logout",
+        {
+          method: "POST",
+          headers: {
+            Authorization: "Bearer " + data.accessToken,
+          },
+        }
+      );
       setLoading(false);
       if (!response.ok) {
         const errorData = await response.json();

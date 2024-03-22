@@ -33,7 +33,7 @@ function Edit() {
       formData.append("avatar", avatar);
       setLoading(true);
       const response = await fetch(
-        "https://typa.onrender.com/user/upload-avatar",
+        "https://typastore.up.railway.app/user/upload-avatar",
         {
           method: "POST",
           body: formData,
@@ -69,7 +69,7 @@ function Edit() {
     try {
       setLoadingPass(true);
       const res = await fetch(
-        "https://typa.onrender.com/user/update-password",
+        "https://typastore.up.railway.app/user/update-password",
         {
           method: "PUT",
           headers: {
@@ -104,7 +104,7 @@ function Edit() {
     try {
       setLoadingName(true);
       const response = await fetch(
-        `https://typa.onrender.com/user/update-username`,
+        `https://typastore.up.railway.app/user/update-username`,
         {
           method: "PUT",
           headers: {

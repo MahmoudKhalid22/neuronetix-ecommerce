@@ -15,7 +15,9 @@ function Products() {
       try {
         setLoading(true);
         setError(false);
-        const response = await fetch("https://typa.onrender.com/product");
+        const response = await fetch(
+          "https://typastore.up.railway.app/product"
+        );
         const prds = await response.json();
         if (!response.ok) {
           throw new Error(prds);

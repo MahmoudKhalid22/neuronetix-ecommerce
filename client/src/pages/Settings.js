@@ -48,7 +48,7 @@ const Settings = () => {
   const getData = async () => {
     try {
       setLoading(true);
-      const response = await fetch("https://typa.onrender.com/user/me", {
+      const response = await fetch("https://typastore.up.railway.app/user/me", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -67,7 +67,7 @@ const Settings = () => {
     try {
       setLoading(true);
       const response = await fetch(
-        "https://typa.onrender.com/user/admin/teachers",
+        "https://typastore.up.railway.app/user/admin/teachers",
         {
           method: "GET",
           headers: {
@@ -87,13 +87,16 @@ const Settings = () => {
   const getStudents = async () => {
     try {
       setLoading(true);
-      const response = await fetch("https://typa.onrender.com/user/students", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + teacherToken,
-        },
-      });
+      const response = await fetch(
+        "https://typastore.up.railway.app/user/students",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + teacherToken,
+          },
+        }
+      );
       const students = await response.json();
       dispatch({ type: "students", payload: students?.students });
     } catch (err) {

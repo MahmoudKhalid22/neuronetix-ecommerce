@@ -30,7 +30,7 @@ const Product = () => {
       formData.append("product", imageFile);
 
       const response = await fetch(
-        "https://typa.onrender.com/product/upload-product-image/" + id,
+        "https://typastore.up.railway.app/product/upload-product-image/" + id,
         {
           method: "POST",
           headers: {

@@ -17,7 +17,7 @@ function Contact() {
     e.preventDefault();
     try {
       setLoading(true);
-      const response = await fetch("https://typa.onrender.com/message", {
+      const response = await fetch("https://typastore.up.railway.app/message", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

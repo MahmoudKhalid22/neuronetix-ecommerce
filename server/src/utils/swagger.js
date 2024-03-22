@@ -13,7 +13,7 @@ const options = {
         email: "m.khalid.samra@gmail.com",
       },
     },
-    servers: [{ url: "https://typa.onrender.com" }],
+    servers: [{ url: "https://typastore.up.railway.app/" }],
   },
   apis: ["./src/utils/*.js", "./src/model/*.js"],
 };
