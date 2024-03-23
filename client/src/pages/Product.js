@@ -13,6 +13,12 @@ const Product = () => {
   const [data, setData] = useState("");
   const [inform, setInform] = useState(false);
   const [product, setProduct] = useState({});
+  // UPDATE PRODUCT
+  const [name, setName] = useState("");
+  const [information, setInformation] = useState("");
+  const [price, setPrice] = useState(0);
+  const [priceDiscount, setPriceDiscount] = useState(0);
+  const [rest, setRest] = useState(0);
 
   useEffect(() => {
     const getProduct = async () => {
@@ -69,6 +75,41 @@ const Product = () => {
       setLoading(false);
     }
   };
+
+  const updateItem = async (e) => {
+    e.preventDefault();
+    try {
+      setLoading(true);
+      const res = await fetch("http://localhost:5000/product/" + id, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + adminToken,
+        },
+        body: JSON.stringify({
+          name,
+          information,
+          price,
+          priceDiscount,
+          rest,
+        }),
+      });
+      const result = await res.json();
+      if (!res.ok) throw new Error(result);
+
+      setProduct(result);
+      setName("");
+      setInformation("");
+      setPrice(0);
+      setPriceDiscount(0);
+      setRest(0);
+    } catch (err) {
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <>
       {product._id ? (
@@ -109,9 +150,9 @@ const Product = () => {
       )}
 
       {isAdmin && data && (
-        <div className="mt-36">
+        <div className="mt-4 border-t-teal-950 border">
           <form
-            className="bg-[#6d727b] rounded p-6 shadow-md  md:w-[70%] mx-auto  mt-32"
+            className="bg-[#6d727b] rounded p-6 shadow-md w-[90%] rounded-md md:w-[70%] mx-auto  mt-8"
             onSubmit={uploadItemImage}
           >
             <div className="mb-4">
@@ -128,7 +169,7 @@ const Product = () => {
                 accept="image/*"
                 required
                 onChange={(e) => setImageFile(e.target.files[0])}
-                className="mt-1 w-full md:w-1/2 mx-auto block  border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                className="py-2 px-4 text-lg mt-1 w-full md:w-1/2 mx-auto block  border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-slate-50"
               />
             </div>
             {loading ? (
@@ -140,7 +181,7 @@ const Product = () => {
             ) : (
               <button
                 type="submit"
-                className="bg-yellow-500 transition-all duration-300 mx-auto block hover:bg-yellow-600 text-white py-2 px-4 rounded-md shadow-md"
+                className="bg-yellow-500 transition-all duration-300 mx-auto block hover:bg-yellow-600 text-[#0b1423] py-2 px-4 rounded-md shadow-md"
               >
                 Upload
               </button>
@@ -151,6 +192,109 @@ const Product = () => {
               Image uploaded successfully
             </p>
           )}
+
+          <form
+            onSubmit={updateItem}
+            className="bg-[#6d727b] rounded p-6 shadow-md w-[90%]  md:w-[70%] mx-auto mt-8 mb-16"
+          >
+            <div className="mb-4">
+              <label
+                htmlFor="name"
+                className="block mx-auto text-center text-[#f5f5f5]"
+              >
+                Name:
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={name}
+                required
+                className="py-2 px-4 text-lg mt-1 w-full md:w-1/2 block mx-auto border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                onChange={(e) => setName(e.target.value)}
+              />
+            </div>
+            <div className="mb-4">
+              <label
+                htmlFor="information"
+                className="block mx-auto text-center text-[#f5f5f5]"
+              >
+                Information:
+              </label>
+              <textarea
+                id="information"
+                name="information"
+                value={information}
+                required
+                className="py-2 px-4 text-lg mt-1 w-full md:w-1/2 block mx-auto border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                onChange={(e) => setInformation(e.target.value)}
+              ></textarea>
+            </div>
+            <div className="mb-4">
+              <label
+                htmlFor="price"
+                className="block mx-auto text-center text-[#f5f5f5]"
+              >
+                Price:
+              </label>
+              <input
+                type="number"
+                id="price"
+                name="price"
+                value={price}
+                required
+                className="py-2 px-4 text-lg mt-1 w-full md:w-1/2 block mx-auto border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                onChange={(e) => setPrice(e.target.value)}
+              />
+            </div>
+            <div className="mb-4">
+              <label
+                htmlFor="priceDiscount"
+                className="block mx-auto text-center text-[#f5f5f5]"
+              >
+                Discount Price:
+              </label>
+              <input
+                type="number"
+                id="priceDiscount"
+                name="priceDiscount"
+                value={priceDiscount}
+                required
+                className="py-2 px-4 text-lg mt-1 w-full md:w-1/2 block mx-auto border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                onChange={(e) => setPriceDiscount(e.target.value)}
+              />
+            </div>
+            <div className="mb-4">
+              <label
+                htmlFor="rest"
+                className="block mx-auto text-center text-[#f5f5f5]"
+              >
+                Quantity:
+              </label>
+              <input
+                type="number"
+                id="rest"
+                name="rest"
+                value={rest}
+                required
+                className="py-2 px-4 text-lg mt-1 w-full md:w-1/2 block mx-auto border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                onChange={(e) => setRest(e.target.value)}
+              />
+            </div>
+            <div>
+              <button
+                disabled={loading}
+                type="submit"
+                className="bg-yellow-500 mx-auto text-center block text-[#0b1423] py-2 px-4 rounded hover:bg-yellow-600"
+              >
+                Add Product
+              </button>
+            </div>
+            <div className="bg-white">
+              {" "}
+              {loading && <Spinner color="#f5f5f5" />}
+            </div>
+          </form>
         </div>
       )}
     </>

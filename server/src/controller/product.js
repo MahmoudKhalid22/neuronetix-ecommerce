@@ -61,6 +61,7 @@ const uploadItemImg = async (req, res) => {
 
 const updateItem = async (req, res) => {
   const isAdmin = req.user[0].role === "admin";
+  const productId = req.params.id;
 
   if (isAdmin) {
     const updates = Object.keys(req.body);
@@ -82,13 +83,12 @@ const updateItem = async (req, res) => {
       return res.status(400).send({ error: "no valid update" });
 
     try {
-      const item = await Table.findOne({
-        _id: req.params.id,
-        owner: req.user._id,
+      const item = await Product.findOne({
+        _id: productId,
       });
-      if (!task) return res.status(404).send({ error: "item is not found" });
+      if (!item) return res.status(404).send({ error: "item is not found" });
 
-      updates.forEach((update) => (task[update] = req.body[update]));
+      updates.forEach((update) => (item[update] = req.body[update]));
 
       await item.save();
       res.send(item);

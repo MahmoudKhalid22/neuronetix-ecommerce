@@ -68,7 +68,7 @@ const ProductCard = ({ product, isAdmin }) => {
       {isAdmin && (
         <div className="mt-8 flex items-center justify-between">
           <Link
-            to={`product/${product?._id}?lpl,]ohg]ulv=true`}
+            to={`/product/${product?._id}?lpl,]ohg]ulv=true`}
             className="bg-[#0b1423] mx-auto w-fit hover:bg-[#3c434f] transition-colors duration-300 text-white font-bold py-2 px-4 block mb-6"
           >
             Update
