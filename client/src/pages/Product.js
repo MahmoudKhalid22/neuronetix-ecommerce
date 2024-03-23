@@ -4,15 +4,15 @@ import Spinner from "../components/utilsComponents/Spinner";
 const Product = () => {
   const { id } = useParams();
   const [searchParams] = useSearchParams();
-  const isAdmin = searchParams.get("lpl,]ohg]ulv");
-
+  let isAdmin = searchParams.get("lpl,]ohg]ulv");
+  if (!isAdmin) isAdmin = false;
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const [imageFile, setImageFile] = useState(null);
   const [data, setData] = useState("");
   const [inform, setInform] = useState(false);
-  const [product, setProduct] = useState([]);
+  const [product, setProduct] = useState({});
 
   useEffect(() => {
     const getProduct = async () => {
@@ -31,7 +31,6 @@ const Product = () => {
     };
     getProduct();
   }, [id]);
-
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("data"));
     if (!userData || userData.length === 0) {
@@ -39,9 +38,7 @@ const Product = () => {
     }
     setData(userData);
   }, []);
-  if (!data) {
-    return <div>you are not the admin</div>;
-  }
+
   const adminToken = data?.user?.role === "admin" ? data?.accessToken : null;
 
   const uploadItemImage = async (e) => {
@@ -74,7 +71,7 @@ const Product = () => {
   };
   return (
     <>
-      {!isAdmin && (
+      {product._id ? (
         <div className="mt-36 flex flex-wrap justify-center sm:grid sm:grid-cols-2 sm:grid-flow-row sm:gap-6 p-5">
           <div className="col-span-1">
             <img src={product?.img} alt="product img" />
@@ -82,7 +79,7 @@ const Product = () => {
           <div className="col-span-1">
             <h2 className="text-xl font-semibold">
               Name:
-              <span className="text-[#6d727b] ml-4">{product?.name}</span>
+              <span className="text-[#6d727b] ml-4">{product.name}</span>
             </h2>
             <p className="text-xl mt-4 font-semibold">
               discription :
@@ -107,7 +104,10 @@ const Product = () => {
             </p>
           </div>
         </div>
+      ) : (
+        <Spinner />
       )}
+
       {isAdmin && data && (
         <div className="mt-36">
           <form

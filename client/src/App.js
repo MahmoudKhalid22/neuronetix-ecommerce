@@ -44,8 +44,8 @@ function App() {
           />
           <Route path="/products">
             <Route index element={<Products />} />
-            <Route path="product/:id" element={<Product />} />
           </Route>
+          <Route path="/product/:id" element={<Product />} />
           <Route path="/add-product" element={<AddProduct />} />
           <Route path="/messages" element={<Messages />} />
           <Route path="/settings">

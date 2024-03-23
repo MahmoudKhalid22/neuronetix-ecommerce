@@ -59,7 +59,7 @@ const ProductCard = ({ product, isAdmin }) => {
           </p>
         </div>
         <Link
-          to={`/products/product/${product?._id}`}
+          to={`/product/${product?._id}`}
           className="bg-[#ec981a] hover:bg-[#d49433] transition-colors duration-300 py-2 px-4 rounded-md text-[#0b1423] mt-4 block text-center font-semibold text-xl"
         >
           More Details

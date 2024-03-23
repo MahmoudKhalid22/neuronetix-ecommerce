@@ -60,6 +60,7 @@ function Links({ isLogin, onSetIsLogin }) {
       <Logo />
       <div className="flex items-center justify-between flex-col h-full   overflow-hidden">
         <ul
+          onClick={() => setIsOpen(false)}
           className={`
           overflow-hidden
           transition-all
