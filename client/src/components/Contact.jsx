@@ -57,16 +57,9 @@ function Contact() {
     <>
       <div
         id="contact"
-        className="flex items-center justify-center flex-row-reverse py-32 gap-20"
+        className="flex flex-col items-center justify-center  py-32 gap-6"
       >
-        <div className="w-80 lg:w-[25.75rem] h-[33.875rem] flex-1/2 md:block hidden">
-          <img
-            src="/assets/bg-1.png"
-            alt="form bg"
-            className="w-full rounded-3xl h-full object-cover"
-            loading="lazy"
-          />
-        </div>
+        <h1 className="text-3xl font-semibold text-[#6d727b]">Send Us</h1>
         <form
           className="flex flex-col h-full gap-7 md:flex-1/2 w-[85%]  sm:w-72 lg:w-[23.75rem]"
           onSubmit={handleSendMsg}
