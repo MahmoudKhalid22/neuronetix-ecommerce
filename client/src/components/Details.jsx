@@ -60,7 +60,7 @@ function Details({ onSetIsLogin }) {
     <div className="mt-32">
       {error ? (
         <p className="text-red-600 font-semibold text-2xl mx-auto text-center">
-          حدث بعض الخطأ
+          Some Error Occured!
         </p>
       ) : loading ? (
         <Spinner />
@@ -103,6 +103,13 @@ function Details({ onSetIsLogin }) {
               </Link>
             </>
           )}
+
+          <Link
+            to={`/settings`}
+            className="bg-[#0b1423] hover:bg-[#0b1423] transition-colors duration-300 text-[#f5f5f5] rounded-sm px-4 py-2"
+          >
+            Settings
+          </Link>
         </div>
       )}
     </div>

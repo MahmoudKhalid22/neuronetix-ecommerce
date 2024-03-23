@@ -214,14 +214,14 @@ function Form({ onSetIsLogin }) {
         )}
       </p>
 
-      <div className="flex gap-12">
+      {/* <div className="flex gap-12">
         <button onClick={handleGoogleRegister}>
           <FaGooglePlus className="text-5xl fill-[#ec981a] hover:fill-[#d48917] " />
         </button>
         <button>
           <FaFacebook className="text-5xl  fill-[#ec981a] hover:fill-[#d48917] " />
         </button>
-      </div>
+      </div> */}
     </form>
   );
 }

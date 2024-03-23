@@ -80,21 +80,21 @@ const Settings = () => {
     );
   }
   return (
-    <div className="w-[80%] mr-20 lg:mr-80 mt-16">
+    <div className="mt-36 flex items-center justify-center flex-col">
       {/* ADMIN DASHBOARD */}
       {data?.user?.role === "admin" && (
         <div className="text-2xl ">
           <div className="flex flex-col gap-6">
-            <div>
+            {/* <div>
               <button
                 className="bg-[#43766C] hover:bg-[#365e56] transition-colors duration-300 text-white px-4 py-2 text-lg"
                 onClick={() => {
                   dispatch({ type: "allTeachers" });
                 }}
               >
-                عرض كل المعلمين
+                all users
               </button>
-              {/* {error ? (
+              {error ? (
                 <p className="text-red-600 font-semibold text-2xl mt-6">
                   حدث بعض الخطأ
                 </p>
@@ -103,93 +103,36 @@ const Settings = () => {
                   <Spinner />
                 </div>
               ) : (
-                // state.info && (
-                //   <div className="flex gap-6 flex-wrap mt-4">
-                //     {state.teachers?.map((user) => (
-                //     //   <Card
-                //     //     key={user?._id}
-                //     //     name={user?.name}
-                //     //     role={user?.role}
-                //     //     professional={user?.professional}
-                //     //     avatar={user?.avatar}
-                //     //     price={user?.price}
-                //     //     admin={true}
-                //     //     id={user?._id}
-                //     //     adminToken={adminToken}
-                //     //   />
-                //     // ))}
-                //   </div>
+                state.info && (
+                  <div className="flex gap-6 flex-wrap mt-4">
+                    {state.teachers?.map((user) => (
+                      <Card
+                        key={user?._id}
+                        name={user?.name}
+                        role={user?.role}
+                        professional={user?.professional}
+                        avatar={user?.avatar}
+                        price={user?.price}
+                        admin={true}
+                        id={user?._id}
+                        adminToken={adminToken}
+                      />
+                    ))}
+                  </div>
                 )
-              )} */}
-            </div>
+              )}
+            </div> */}
             <div>
-              <button
+              {/* <button
                 className="bg-[#43766C] hover:bg-[#365e56] transition-colors duration-300 text-white px-4 py-2 text-lg"
                 onClick={() => dispatch({ type: "showTeacher" })}
               >
-                إضافة معلم
-              </button>
+                Add user
+              </button> */}
 
               {state.showTeacherForm && (
                 <AddUserForm admin={true} role="teacher" />
               )}
-            </div>
-            <div>
-              <button
-                className="bg-[#43766C] hover:bg-[#365e56] transition-colors duration-300 text-white px-4 py-2 text-lg "
-                onClick={() => dispatch({ type: "showStudent" })}
-              >
-                إضافة طالب
-              </button>
-              {state.showStudentForm && (
-                <AddUserForm
-                  role="student"
-                  admin={true}
-                  teachers={state.teachers}
-                />
-              )}
-            </div>
-          </div>
-        </div>
-      )}
-
-      {data?.user?.role === "teacher" && (
-        <div>
-          <div>
-            <div>
-              <button
-                className="bg-[#43766C] hover:bg-[#365e56] transition-colors duration-300 text-white px-4 py-2 text-lg"
-                onClick={() => {}}
-              >
-                عرض كل الطلبة
-              </button>
-              <div className="flex gap-2 w-full flex-wrap ">
-                {/* {loading ? (
-                  <p className="text-xl font-semibold">تحميل...</p>
-                ) : error ? (
-                  <p className="text-red-600 text-xl font-semibold">
-                    حدث بعض الخطأ الداخلي.{" "}
-                  </p>
-                ) : (
-                  state.students.length > 0 &&
-                  state.students.map((student) => (
-                    <StudentCard
-                      key={student._id}
-                      student={student}
-                      teacherToken={teacherToken}
-                    />
-                  ))
-                )} */}
-              </div>
-            </div>
-            <div>
-              <button
-                className="bg-[#43766C] hover:bg-[#365e56] transition-colors duration-300 text-white px-4 py-2 text-lg mt-6"
-                onClick={() => dispatch({ type: "showStudent" })}
-              >
-                إضافة طالب
-              </button>
-              {state?.showStudentForm && <AddUserForm role="student" />}
             </div>
           </div>
         </div>
@@ -203,7 +146,7 @@ const Settings = () => {
             getData();
           }}
         >
-          معلومات الحساب
+          Account information
         </button>
         {show && (
           <div>
@@ -218,43 +161,37 @@ const Settings = () => {
               >
                 <div className="flex flex-row-reverse gap-8">
                   <p id="email">{userData[0]?.email}</p>
-                  <label>البريد الإلكتروني</label>
+                  <label className="text-2xl font-bold">Email</label>
                 </div>
                 <div className="flex flex-row-reverse gap-8">
                   <p id="email">{userData[0]?.name}</p>
-                  <label>الاسم</label>
+                  <label className="text-2xl font-bold">Name</label>
                 </div>
                 <div className="flex flex-row-reverse gap-8">
                   <p id="email">
-                    {userData[0]?.role === "teacher"
-                      ? "معلم"
-                      : userData[0]?.role === "student"
-                      ? "طالب"
-                      : "مدير"}
+                    {userData[0]?.role === "admin"
+                      ? "admin"
+                      : userData[0]?.role === "user"
+                      ? "user"
+                      : ""}
                   </p>
-                  <label>الدور</label>
+                  <label className="text-2xl font-bold">role</label>
                 </div>
                 <div className="flex flex-row-reverse gap-8">
                   <p id="email">
-                    {userData[0]?.status === "pending"
-                      ? "في الانتظار"
-                      : userData[0]?.status === "block"
-                      ? "محظور"
-                      : "نشط"}
+                    {userData[0]?.status === "blocked"
+                      ? "blocked"
+                      : userData[0]?.status === "active"
+                      ? "active"
+                      : ""}
                   </p>
-                  <label>حالة القبول</label>
-                </div>
-                <div className="flex flex-row-reverse gap-8">
-                  <p id="email">
-                    {userData[0]?.professional ? "مجاز" : "غير مجاز"}
-                  </p>
-                  <label>حالة الإجازة</label>
+                  <label className="text-2xl font-bold">Status: </label>
                 </div>
 
                 <div></div>
               </div>
             ) : (
-              <p>تحميل...</p>
+              <p>Loading...</p>
             )}
           </div>
         )}
@@ -264,9 +201,9 @@ const Settings = () => {
           to="/settings/edit"
           className="text-center w-fit text-lg p-2 border-none outline-none cursor-pointer  bg-[#43766C] hover:bg-[#365e56] text-white transition-colors mt-6 flex items-center justify-center "
           onClick={() => setFormUpdate((prev) => !prev)}
-          title="تحديث المعلومات الشخصية"
+          title="update account information"
         >
-          تحديث معلومات الحساب
+          Update information
         </Link>
         <div className="mt-6 w-fit border-none">
           {formUpdate && (

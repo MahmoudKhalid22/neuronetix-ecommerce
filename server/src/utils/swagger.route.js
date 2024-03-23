@@ -245,41 +245,7 @@
  *       '500':
  *         description: Internal Server Error
  */
-/**
- * @swagger
- * /update-email:
- *   put:
- *    summary: update email.
- *    tags:
- *        - Authentication
- *    description: if the user wants to update his name from this end point he can do that.
- *    parameters:
- *       - in: header
- *         name: Authorization
- *         description: Bearer access token for update the username
- *         example: "Bearer abcxyz123456"
- *         required: true
- *         schema:
- *           type: string
- *    requestBody:
- *         content:
- *          application/json:
- *           schema:
- *             type: object
- *             properties:
- *               email:
- *                 type: string
- *    responses:
- *       '200':
- *         description: email has been sent to you, please check your email to verify your new one.
- *         content:
- *          application/json:
- *              schema:
- *                  type: object
- *                  example: {message: email has been sent to you. please check your email to verify your new one}
- *       '500':
- *         description: Internal server error
- */
+
 /**
  * @swagger
  * /update-password:
@@ -373,38 +339,6 @@
  *          '500':
  *              description: internal server error
  *
- */
-
-/**
- * @swagger
- * /user/auth/google:
- *  get:
- *      description: oauth with google
- *      summary: this endpoint to enter oauth interface with google
- *      tags:
- *          - Authentication
- */
-/**
- * @swagger
- * /user/failure:
- *  get:
- *      description: if the user signed in with google and there is some error so this one for send failure message
- *      tags:
- *          - Authentication
- *      responses:
- *          '200':
- *              content:
- *                  application/json:
- *                      type: object
- *                      example: {message: failure}
- */
-/**
- * @swagger
- *  /user/auth/facebook:
- *      get:
- *          description: user login with facebook account
- *          tags:
- *              - Authentication
  */
 
 // FOR ADMIN

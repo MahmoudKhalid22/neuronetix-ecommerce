@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { HashLink } from "react-router-hash-link";
 import { AiOutlineMenu } from "react-icons/ai";
 
-import { LiaUserPlusSolid } from "react-icons/lia";
 import Logo from "./Logo";
 import { Link, useNavigate } from "react-router-dom";
 import { GiEntryDoor } from "react-icons/gi";
 import { RxGear } from "react-icons/rx";
 import { CgProfile } from "react-icons/cg";
+import Spinner from "../utilsComponents/Spinner";
 
 const data = localStorage.getItem("data")
   ? JSON.parse(localStorage.getItem("data"))
@@ -125,22 +125,44 @@ function Links({ isLogin, onSetIsLogin }) {
               </HashLink>
             </li>
           ) : (
-            <li>
-              <Link
-                to="/details"
-                className=" border-none outline-none cursor-pointer rounded-lg transition-colors flex items-center justify-center text-[#f5f5f5] md:text-[#6d727b] "
-              >
-                <div
-                  className="block md:hidden bg-[#ec981a] hover:bg-[#d48917] transition-colors rounded-md px-2 text-center 
-              text-white text-2xl"
+            <>
+              <li>
+                <Link
+                  to="/details"
+                  className=" border-none outline-none cursor-pointer rounded-lg transition-colors flex items-center justify-center text-[#f5f5f5] md:text-[#6d727b] "
                 >
-                  Profile
-                </div>
-                <div className="text-3xl hidden md:block">
-                  <CgProfile />
-                </div>
-              </Link>
-            </li>
+                  <div
+                    className="block md:hidden bg-[#ec981a] hover:bg-[#d48917] transition-colors rounded-md px-2 text-center 
+              text-white text-2xl"
+                  >
+                    Profile
+                  </div>
+                  <div className="text-3xl hidden md:block">
+                    <CgProfile />
+                  </div>
+                </Link>
+              </li>
+              <li>
+                {loading ? (
+                  <Spinner />
+                ) : (
+                  <button
+                    onClick={logout}
+                    className=" border-none outline-none cursor-pointer rounded-lg transition-colors flex items-center justify-center text-[#f5f5f5] md:text-[#6d727b] "
+                  >
+                    <div
+                      className="block md:hidden  transition-colors rounded-md px-2 text-center 
+              text-white text-2xl"
+                    >
+                      logout
+                    </div>
+                    <div className="text-3xl hidden md:block">
+                      <GiEntryDoor />
+                    </div>
+                  </button>
+                )}
+              </li>
+            </>
           )}
         </ul>
         {/* {!isLogin && (

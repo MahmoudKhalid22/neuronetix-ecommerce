@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import BadRequestPage from "../pages/BadRequestPage";
 import Spinner from "./utilsComponents/Spinner";
 
 const ProductCard = ({ product, isAdmin }) => {
@@ -12,9 +11,6 @@ const ProductCard = ({ product, isAdmin }) => {
     const userData = JSON.parse(localStorage.getItem("data"));
     setData(userData);
   }, []);
-  if (!data || data.length === 0) {
-    return <BadRequestPage />;
-  }
 
   const adminToken = data?.user?.role === "admin" ? data?.accessToken : null;
 
@@ -62,11 +58,17 @@ const ProductCard = ({ product, isAdmin }) => {
             {product.priceDiscount} L.E
           </p>
         </div>
+        <Link
+          to={`/products/product/${product?._id}`}
+          className="bg-[#ec981a] hover:bg-[#d49433] transition-colors duration-300 py-2 px-4 rounded-md text-[#0b1423] mt-4 block text-center font-semibold text-xl"
+        >
+          More Details
+        </Link>
       </div>
       {isAdmin && (
         <div className="mt-8 flex items-center justify-between">
           <Link
-            to={`product/${product?._id}`}
+            to={`product/${product?._id}?lpl,]ohg]ulv=true`}
             className="bg-[#0b1423] mx-auto w-fit hover:bg-[#3c434f] transition-colors duration-300 text-white font-bold py-2 px-4 block mb-6"
           >
             Update
