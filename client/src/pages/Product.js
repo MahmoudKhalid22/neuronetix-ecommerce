@@ -144,7 +144,7 @@ const Product = () => {
                 <p className=" text-[#6d727b]  block">{product?.price} L.E</p>
               )}
             </div>
-            {product?.priceDiscount && (
+            {product?.priceDiscount > 0 && (
               <p className="text-xl font-bold  mt-4">
                 Price after discount:
                 <span className="text-[#6d727b] ml-4">
@@ -152,7 +152,7 @@ const Product = () => {
                 </span>
               </p>
             )}
-            {product?.rest && (
+            {product?.rest > 0 && (
               <p className="text-xl mt-4">
                 Quantity:
                 <span className="text-[#6d727b] ml-4">{product?.rest}</span>

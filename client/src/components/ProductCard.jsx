@@ -54,12 +54,12 @@ const ProductCard = ({ product, isAdmin }) => {
         </div>
         <div className="flex gap-8 items-center">
           {product?.priceDiscount > 0 ? (
-            <del className=" text-[#6d727b]  block">{product?.price} L.E</del>
+            <del className=" text-[#f5f5f5]  block">{product?.price} L.E</del>
           ) : (
-            <p className=" text-[#6d727b]  block">{product?.price} L.E</p>
+            <p className=" text-[#f5f5f5]  block">{product?.price} L.E</p>
           )}
 
-          {product?.priceDiscount && (
+          {product?.priceDiscount > 0 && (
             <p className=" text-base text-[#f5f5f5]">
               {product.priceDiscount} L.E
             </p>
