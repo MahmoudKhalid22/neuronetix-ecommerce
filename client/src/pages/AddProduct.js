@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Spinner from "../components/utilsComponents/Spinner";
 
 function AddProduct() {
-  const [error, setError] = useState(false);
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState(false);
   // USER DATA
@@ -38,14 +38,15 @@ function AddProduct() {
             name: name,
             information: information,
             price: price,
-            priceDiscount: discount,
-            rest: rest,
+            priceDiscount: discount > 0 ? discount : undefined,
+            rest: rest > 0 ? rest : undefined,
           }),
         }
       );
       const result = await res.json();
+      // console.log(result);
       if (!res.ok) {
-        throw new Error(result);
+        throw new Error(result.err);
       }
       setName("");
       setInformation("");
@@ -53,8 +54,7 @@ function AddProduct() {
       setDiscount(0);
       setRest(0);
     } catch (err) {
-      console.log(err);
-      setError(true);
+      setError(err.message);
     } finally {
       setLoading(false);
     }
@@ -64,7 +64,7 @@ function AddProduct() {
     <>
       <form
         onSubmit={addProduct}
-        className="bg-[#6d727b] rounded p-6 shadow-md  md:w-[70%] mx-auto mt-32 "
+        className="bg-[#6d727b] rounded p-4 shadow-md w-[90%]  md:w-[60%] mx-auto mt-36 mb-16"
       >
         <div className="mb-4">
           <label
@@ -79,7 +79,7 @@ function AddProduct() {
             name="name"
             value={name}
             required
-            className="mt-1 w-full md:w-1/2 block mx-auto border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+            className="py-2 px-4 text-lg mt-1 w-full md:w-[85%] block mx-auto border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
             onChange={(e) => setName(e.target.value)}
           />
         </div>
@@ -95,7 +95,7 @@ function AddProduct() {
             name="information"
             value={information}
             required
-            className="mt-1 w-full md:w-1/2 block mx-auto border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+            className="py-2 px-4 text-lg mt-1 w-full md:w-[85%] block mx-auto border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
             onChange={(e) => setInformation(e.target.value)}
           ></textarea>
         </div>
@@ -112,7 +112,7 @@ function AddProduct() {
             name="price"
             value={price}
             required
-            className="mt-1 w-full md:w-1/2 block mx-auto border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+            className="py-2 px-4 text-lg mt-1 w-full md:w-[85%] block mx-auto border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
             onChange={(e) => setPrice(e.target.value)}
           />
         </div>
@@ -128,8 +128,7 @@ function AddProduct() {
             id="priceDiscount"
             name="priceDiscount"
             value={discount}
-            required
-            className="mt-1 w-full md:w-1/2 block mx-auto border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+            className="py-2 px-4 text-lg mt-1 w-full md:w-[85%] block mx-auto border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
             onChange={(e) => setDiscount(e.target.value)}
           />
         </div>
@@ -145,8 +144,7 @@ function AddProduct() {
             id="rest"
             name="rest"
             value={rest}
-            required
-            className="mt-1 w-full md:w-1/2 block mx-auto border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+            className="py-2 px-4 text-lg mt-1 w-full md:w-[85%] block mx-auto border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
             onChange={(e) => setRest(e.target.value)}
           />
         </div>
@@ -162,6 +160,11 @@ function AddProduct() {
         <div className="bg-white">
           {" "}
           {loading && <Spinner color="#f5f5f5" />}
+          {error && (
+            <p className="text-2xl font-semibold mx-auto text-center text-red-600">
+              {error}
+            </p>
+          )}
         </div>
       </form>
     </>

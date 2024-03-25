@@ -80,21 +80,26 @@ const Product = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      const res = await fetch("http://localhost:5000/product/" + id, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + adminToken,
-        },
-        body: JSON.stringify({
-          name,
-          information,
-          price,
-          priceDiscount,
-          rest,
-        }),
-      });
+      const res = await fetch(
+        "https://typastore.up.railway.app/product/" + id,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + adminToken,
+          },
+          body: JSON.stringify({
+            name: name.trim().length > 0 ? name : undefined,
+            information:
+              information.trim().length > 0 ? information : undefined,
+            price: price > 0 ? price : undefined,
+            priceDiscount: priceDiscount > 0 ? priceDiscount : undefined,
+            rest: rest > 0 ? rest : undefined,
+          }),
+        }
+      );
       const result = await res.json();
+      console.log(result);
       if (!res.ok) throw new Error(result);
 
       setProduct(result);
@@ -131,18 +136,30 @@ const Product = () => {
             </p>
             <div className="flex gap-4 mt-4  font-bold text-xl items-center">
               <span>price : </span>
-              <del className=" text-[#6d727b]  block">{product?.price} L.E</del>
+              <>
+                {product?.priceDiscount > 0 ? (
+                  <del className=" text-[#6d727b]  block">
+                    {product?.price} L.E
+                  </del>
+                ) : (
+                  <p className=" text-[#6d727b]  block">{product?.price} L.E</p>
+                )}
+              </>
             </div>
-            <p className="text-xl font-bold  mt-4">
-              Price after discount:
-              <span className="text-[#6d727b] ml-4">
-                {product?.priceDiscount} L.E
-              </span>
-            </p>
-            <p className="text-xl mt-4">
-              Quantity:
-              <span className="text-[#6d727b] ml-4">{product?.rest}</span>
-            </p>
+            {product?.priceDiscount && (
+              <p className="text-xl font-bold  mt-4">
+                Price after discount:
+                <span className="text-[#6d727b] ml-4">
+                  {product?.priceDiscount} L.E
+                </span>
+              </p>
+            )}
+            {product?.rest && (
+              <p className="text-xl mt-4">
+                Quantity:
+                <span className="text-[#6d727b] ml-4">{product?.rest}</span>
+              </p>
+            )}
           </div>
         </div>
       ) : (
@@ -152,7 +169,7 @@ const Product = () => {
       {isAdmin && data && (
         <div className="mt-4 border-t-teal-950 border">
           <form
-            className="bg-[#6d727b] rounded p-6 shadow-md w-[90%] rounded-md md:w-[70%] mx-auto  mt-8"
+            className="bg-[#6d727b] p-6 shadow-md w-[90%] rounded-md md:w-[70%] mx-auto  mt-8"
             onSubmit={uploadItemImage}
           >
             <div className="mb-4">
@@ -209,7 +226,6 @@ const Product = () => {
                 id="name"
                 name="name"
                 value={name}
-                required
                 className="py-2 px-4 text-lg mt-1 w-full md:w-1/2 block mx-auto border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 onChange={(e) => setName(e.target.value)}
               />
@@ -225,7 +241,6 @@ const Product = () => {
                 id="information"
                 name="information"
                 value={information}
-                required
                 className="py-2 px-4 text-lg mt-1 w-full md:w-1/2 block mx-auto border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 onChange={(e) => setInformation(e.target.value)}
               ></textarea>
@@ -242,7 +257,6 @@ const Product = () => {
                 id="price"
                 name="price"
                 value={price}
-                required
                 className="py-2 px-4 text-lg mt-1 w-full md:w-1/2 block mx-auto border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 onChange={(e) => setPrice(e.target.value)}
               />
@@ -259,7 +273,6 @@ const Product = () => {
                 id="priceDiscount"
                 name="priceDiscount"
                 value={priceDiscount}
-                required
                 className="py-2 px-4 text-lg mt-1 w-full md:w-1/2 block mx-auto border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 onChange={(e) => setPriceDiscount(e.target.value)}
               />
@@ -276,7 +289,6 @@ const Product = () => {
                 id="rest"
                 name="rest"
                 value={rest}
-                required
                 className="py-2 px-4 text-lg mt-1 w-full md:w-1/2 block mx-auto border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 onChange={(e) => setRest(e.target.value)}
               />
@@ -287,7 +299,7 @@ const Product = () => {
                 type="submit"
                 className="bg-yellow-500 mx-auto text-center block text-[#0b1423] py-2 px-4 rounded hover:bg-yellow-600"
               >
-                Add Product
+                Update Product
               </button>
             </div>
             <div className="bg-white">

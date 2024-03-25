@@ -23,14 +23,12 @@ const productSchema = new mongoose.Schema(
     },
     priceDiscount: {
       type: Number,
-      required: true,
     },
     rate: {
       type: Array,
     },
     rest: {
       type: Number,
-      required: true,
     },
     reviews: {
       type: Array,
