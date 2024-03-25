@@ -53,10 +53,17 @@ const ProductCard = ({ product, isAdmin }) => {
           {product.name}
         </div>
         <div className="flex gap-8 items-center">
-          <del className=" text-base text-[#f5f5f5]">{product.price} L.E</del>
-          <p className=" text-base text-[#f5f5f5]">
-            {product.priceDiscount} L.E
-          </p>
+          {product?.priceDiscount > 0 ? (
+            <del className=" text-[#6d727b]  block">{product?.price} L.E</del>
+          ) : (
+            <p className=" text-[#6d727b]  block">{product?.price} L.E</p>
+          )}
+
+          {product?.priceDiscount && (
+            <p className=" text-base text-[#f5f5f5]">
+              {product.priceDiscount} L.E
+            </p>
+          )}
         </div>
         <Link
           to={`/product/${product?._id}`}

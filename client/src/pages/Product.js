@@ -93,8 +93,8 @@ const Product = () => {
             information:
               information.trim().length > 0 ? information : undefined,
             price: price > 0 ? price : undefined,
-            priceDiscount: priceDiscount > 0 ? priceDiscount : undefined,
-            rest: rest > 0 ? rest : undefined,
+            priceDiscount: priceDiscount,
+            rest: rest,
           }),
         }
       );
@@ -136,15 +136,13 @@ const Product = () => {
             </p>
             <div className="flex gap-4 mt-4  font-bold text-xl items-center">
               <span>price : </span>
-              <>
-                {product?.priceDiscount > 0 ? (
-                  <del className=" text-[#6d727b]  block">
-                    {product?.price} L.E
-                  </del>
-                ) : (
-                  <p className=" text-[#6d727b]  block">{product?.price} L.E</p>
-                )}
-              </>
+              {product?.priceDiscount > 0 ? (
+                <del className=" text-[#6d727b]  block">
+                  {product?.price} L.E
+                </del>
+              ) : (
+                <p className=" text-[#6d727b]  block">{product?.price} L.E</p>
+              )}
             </div>
             {product?.priceDiscount && (
               <p className="text-xl font-bold  mt-4">
