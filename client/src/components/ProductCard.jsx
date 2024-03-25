@@ -41,14 +41,16 @@ const ProductCard = ({ product, isAdmin }) => {
   };
 
   return (
-    <div className="max-w-xs  rounded overflow-hidden shadow-xl">
-      <img
-        src={product.img}
-        alt={product.name}
-        className="w-64 h-64 object-contain"
-        loading="lazy"
-      />
-      <div className="px-6 py-4 bg-[#0b1423]">
+    <div className="max-w-xs  rounded overflow-hidden shadow-xl border border-1 border-[#0b1423]">
+      <Link to={`/product/${product?._id}`}>
+        <img
+          src={product.img}
+          alt={product.name}
+          className="w-64 h-64 object-contain hover:scale-105 duration-300 -z-10  transition-transform"
+          loading="lazy"
+        />
+      </Link>
+      <div className="px-6 py-4 bg-[#0b1423] z-2 relative">
         <div className="font-bold text-xl mb-2 text-[#f5f5f5]">
           {product.name}
         </div>
@@ -72,6 +74,7 @@ const ProductCard = ({ product, isAdmin }) => {
           More Details
         </Link>
       </div>
+
       {isAdmin && (
         <div className="mt-8 flex items-center justify-between">
           <Link
