@@ -157,29 +157,40 @@ const forgetPassword = async (req, res) => {
     const { email } = req.body;
     const user = await findUserByEmail(email);
     if (!user)
-      return res
-        .status(400)
-        .send({ message: "هذا البريد الإلكتروني غير مسجل" });
+      return res.status(400).send({ message: "this email is not registerd!" });
     const token = jwt.sign(
       { id: user._id.toString() },
       process.env.RESET_PASSWORD_SECRET,
       { expiresIn: "1h" }
     );
-    resetPasswordEmail(email, token);
+    await resetPasswordEmail(email, token);
     res.send({
       message:
-        "تم إرسال ايميل إلى عنوان بريدك الإلكتروني من فضلك اذهب إلى بريدك الإلكتروني لإعادة تعيين كلمة السر",
+        "email has been sent to you please click on it to reset your password",
     });
   } catch (err) {
-    res.status(500).send({ err });
+    res.status(500).send({ err: err.message });
+  }
+};
+
+let user;
+const verifyForgetPasswordToken = async (req, res) => {
+  try {
+    const token = req.params.token;
+
+    const verified = jwt.verify(token, process.env.RESET_PASSWORD_SECRET);
+    if (!verified) {
+      return res.send({ error: "Your token has been expired" });
+    }
+    user = await User.findById(verified._id);
+    res.redirect("https://typastore.vercel.app/reset-password");
+  } catch (err) {
+    res.status(500).send({ err: err.message });
   }
 };
 
 const resetPassword = async (req, res) => {
   try {
-    const token = req.params.token;
-    const user = await verifyToken(token, process.env.RESET_PASSWORD_SECRET);
-    if (!user) return res.status(400).send({ message: "token expired" });
     await updatePassword(user._id, req.body.password);
     res.send({ message: "password has been updated" });
   } catch (error) {
@@ -287,4 +298,5 @@ module.exports = {
   getUser,
   getOneUser,
   uploadAvatar,
+  verifyForgetPasswordToken,
 };

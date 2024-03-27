@@ -17,6 +17,7 @@ const {
   getUser,
   getOneUser,
   uploadAvatar,
+  verifyForgetPasswordToken,
 } = require("../controller/user");
 
 const auth = require("../middleware/auth");
@@ -35,6 +36,8 @@ router.post("/login", loginUser);
 router.post("/logout", auth, logoutUser);
 
 router.post("/forget-password", forgetPassword);
+
+router.get("/forget-password/:token", verifyForgetPasswordToken);
 
 router.post("/reset-password/:token", resetPassword);
 

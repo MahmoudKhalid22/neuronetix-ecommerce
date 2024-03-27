@@ -24,8 +24,8 @@ function Proposal({ onSetActiveLink, observer }) {
       </p>
       <div className="flex sm:flex-row flex-col justify-start items-start mt-16 gap-8 sm:gap-0">
         <HashLink smooth to={"/#products"}>
-          <button className="py-1 sm:py-2 px-2 sm:px-4  font-bold text-sm sm:text-xl bg-[#ec981a] hover:bg-[#d48917] text-[#f5f5f5] transition-colors duration-300 rounded-sm ">
-            Explore Printers
+          <button className="py-1 sm:py-2 px-2 sm:px-4 text-sm sm:text-xl bg-[#ec981a] hover:bg-[#d48917] text-[#f5f5f5] transition-colors duration-300 rounded-sm ">
+            Explore Products
           </button>
         </HashLink>
       </div>

@@ -5,16 +5,16 @@ const sgMail = require("@sendgrid/mail");
 
 const resetPasswordEmail = async (email, token) => {
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-  const resetPasswordLink = `https://typastore.up.railway.app/user/reset/${token}`;
+  const resetPasswordLink = `http://localhost:5000/user/forget-password/${token}`;
 
   const msg = {
     to: email, // Change to your recipient
     from: "mahmoud0122549@gmail.com", // Change to your verified sender
-    subject: "إعادة تعيين كلمة السر لمنصة نحيا بالقرآن",
+    subject: "إعادة تعيين كلمة السر للمتجر الإلكتروني تكنو ماركت",
     html: `
     <p style="font-size:1.75rem; font-weight:600;text-align:center;">إعادة تعيين كلمة السر</p>
     <p style="font-size:1.25rem; font-weight:500;text-align:center;">حتى تعيد كتابة كلمة السر , من فضلك اضغط على الزر في الأسفل 👇🏾 لإعادة تعيين كلمة السر </p>    
-    <a href="${resetPasswordLink}" style="background-color: #4CAF50; color: white; padding: 10px 20px; text-decoration: none; display: block; border-radius: 5px;text-align:center;width:fit-content;margin:0 auto;">Verify Email</a>
+    <a href="${resetPasswordLink}" style="background-color: #4CAF50; color: white; padding: 10px 20px; text-decoration: none; display: block; border-radius: 5px;text-align:center;width:fit-content;margin:0 auto;">Reset Password</a>
     `,
   };
   sgMail

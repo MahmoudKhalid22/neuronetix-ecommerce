@@ -52,7 +52,7 @@ function Form({ onSetIsLogin }) {
       setEmail("");
       setPassword("");
       setLoading(false);
-      navigate("/verify");
+      navigate("/verify?message=verification");
     } catch (err) {
       // console.log(err.message);
 
@@ -183,11 +183,26 @@ function Form({ onSetIsLogin }) {
         >
           password{" "}
         </label>
+        {isLogin && (
+          // <p className="absolute top-full right-0 mt-1 text-[#43766C] text-xl underline cursor-pointer">
+          //   <Link to="/forgot-password">Forgot Password?</Link>
+          // </p>
+          <p className="absolute top-full right-0 mt-1 text-[#43766C] text-xl underline cursor-pointer">
+            <Link to="/forget-password">Forgot Password?</Link>
+          </p>
+        )}
       </div>
+
+      {/* <div className="flex justify-end w-full">
+        <p className="text-[#43766C] text-xl underline cursor-pointer">
+          <Link to="/forgot-password">Forgot Password?</Link>
+        </p>
+      </div> */}
 
       <p className="text-2xl text-red-800 text-center md:text-red-500">{`${
         error ? error : ""
       }`}</p>
+      <div></div>
       {loading && <Spinner />}
       <button
         disabled={loading}
