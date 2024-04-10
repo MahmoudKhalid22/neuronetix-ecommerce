@@ -54,7 +54,7 @@ const ProductCard = ({ product, isAdmin }) => {
   return (
     <div
       className="max-w-xs  rounded overflow-hidden shadow-xl border border-1 border-[#0b1423]"
-      onClick={() => setIsAuthenticated(!isAuthenticated)}
+      onClick={() => setIsAuthenticated(false)}
     >
       <Link to={`/product/${product?._id}`}>
         <img
