@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Spinner from "./utilsComponents/Spinner";
+import { MdOutlineAddShoppingCart } from "react-icons/md";
 
 const ProductCard = ({ product, isAdmin }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [data, setData] = useState("");
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
 
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("data"));
@@ -38,6 +40,15 @@ const ProductCard = ({ product, isAdmin }) => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const addToCart = async () => {
+    try {
+      setIsAuthenticated(true);
+      if (!data || data.length <= 0) {
+        return setIsAuthenticated(false);
+      }
+    } catch (err) {}
   };
 
   return (
@@ -73,8 +84,16 @@ const ProductCard = ({ product, isAdmin }) => {
         >
           More Details
         </Link>
+        {!isAdmin && (
+          <button
+            onClick={addToCart}
+            className="flex bg-[#ec981a] w-full hover:bg-[#d49433] transition-colors duration-300 py-2 px-4 rounded-md text-[#0b1423] mt-4 items-center justify-center gap-4 text-center font-semibold text-xl"
+          >
+            <span>Add To Cart</span>
+            <MdOutlineAddShoppingCart />
+          </button>
+        )}
       </div>
-
       {isAdmin && (
         <div className="mt-8 flex items-center justify-between">
           <Link
@@ -93,6 +112,12 @@ const ProductCard = ({ product, isAdmin }) => {
         </div>
       )}
       {loading && <Spinner />}
+      {!isAuthenticated && (
+        <div className="modal absolute top-1/2 left-1/2 w-[20rem] h-[12.5rem] justify-center items-center flex -translate-x-1/2 bg-red-600 shadow-2xl rounded-lg">
+          <p className="w-fit text-2xl text-white">you must login first</p>
+        </div>
+      )}
+
       {error && (
         <p className="text-red-600 text-xl text-center">Some error occured</p>
       )}

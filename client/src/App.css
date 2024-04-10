@@ -37,3 +37,19 @@ body {
 .loading-details {
   margin: 1rem auto;
 }
+.modal {
+  z-index: 22;
+  animation: Modal 0.3s linear;
+}
+
+@keyframes Modal {
+  from {
+    opacity: 0;
+    transform: translateY(12px) translateX(-50%);
+  }
+  to {
+    opacity: 1;
+    z-index: 2;
+    transform: translateY(0) translateX(-50%);
+  }
+}
