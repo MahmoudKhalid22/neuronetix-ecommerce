@@ -46,13 +46,16 @@ const ProductCard = ({ product, isAdmin }) => {
     try {
       setIsAuthenticated(true);
       if (!data || data.length <= 0) {
-        return setIsAuthenticated(false);
+        return setIsAuthenticated(isAuthenticated ? false : true);
       }
     } catch (err) {}
   };
 
   return (
-    <div className="max-w-xs  rounded overflow-hidden shadow-xl border border-1 border-[#0b1423]">
+    <div
+      className="max-w-xs  rounded overflow-hidden shadow-xl border border-1 border-[#0b1423]"
+      onClick={() => setIsAuthenticated(!isAuthenticated)}
+    >
       <Link to={`/product/${product?._id}`}>
         <img
           src={product.img}
@@ -113,7 +116,7 @@ const ProductCard = ({ product, isAdmin }) => {
       )}
       {loading && <Spinner />}
       {!isAuthenticated && (
-        <div className="modal absolute top-1/2 left-1/2 w-[20rem] h-[12.5rem] justify-center items-center flex -translate-x-1/2 bg-red-600 shadow-2xl rounded-lg">
+        <div className="modal fixed top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 w-[20rem] h-[12.5rem] justify-center items-center flex bg-red-600 shadow-2xl rounded-lg">
           <p className="w-fit text-2xl text-white">you must login first</p>
         </div>
       )}
