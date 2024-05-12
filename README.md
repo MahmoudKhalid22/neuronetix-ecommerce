@@ -10,4 +10,8 @@ This is ecommerce project fullstack
 
 ### live demo
 
-[Demo](https://typastore.vercel.app)
+[Live Demo](https://typastore.vercel.app)
+
+### Certificate
+
+![](./certificate.jpg)
