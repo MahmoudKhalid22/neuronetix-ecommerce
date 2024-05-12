@@ -14,6 +14,9 @@ const msgRouter = require("./router/message");
 const { docs } = require("./utils/swagger");
 
 const app = express();
+const corsOption = {
+  origin: ["https://typastore.vercel.app", "http://localhost:3000"],
+};
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -21,7 +24,7 @@ app.set("trust proxy", 1);
 
 app.use(express.json());
 app.use(hpp());
-app.use(cors());
+app.use(cors(corsOption));
 app.use(
   session({
     secret: process.env.SESSION_SECRET,

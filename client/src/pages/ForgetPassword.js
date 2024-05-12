@@ -12,17 +12,22 @@ function ForgetPassword() {
   const handleForget = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://localhost:5000/user/forget-password", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-        }),
-      });
+      const res = await fetch(
+        "https://typastore.up.railway.app/user/forget-password",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email,
+          }),
+        }
+      );
       const result = await res.json();
+      console.log(result);
       if (!res.ok) {
+        console.log(result);
         throw new Error(result.message);
       }
       navigate("/verify?message=forgot");
@@ -41,7 +46,7 @@ function ForgetPassword() {
           Enter your email address below and we'll send you a link to reset your
           password.
         </p>
-        <form className="mb-6">
+        <form className="mb-6" onSubmit={handleForget}>
           <label htmlFor="email" className="block text-gray-700">
             Email
           </label>
@@ -55,7 +60,6 @@ function ForgetPassword() {
           <button
             type="submit"
             className="mt-4 w-full bg-[#ec981a] hover:bg-[#d48917] text-white py-2 rounded-md  transition duration-300"
-            onClick={handleForget}
           >
             Reset Password
           </button>
