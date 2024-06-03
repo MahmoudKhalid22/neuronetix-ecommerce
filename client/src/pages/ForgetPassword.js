@@ -13,7 +13,7 @@ function ForgetPassword() {
     e.preventDefault();
     try {
       const res = await fetch(
-        "https://typastore.up.railway.app/user/forget-password",
+        "https://typa.onrender.com/user/forget-password",
         {
           method: "POST",
           headers: {

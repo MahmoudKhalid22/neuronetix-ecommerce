@@ -23,9 +23,7 @@ const Product = () => {
   useEffect(() => {
     const getProduct = async () => {
       try {
-        const res = await fetch(
-          "https://typastore.up.railway.app/product/" + id
-        );
+        const res = await fetch("https://typa.onrender.com/product/" + id);
         const result = await res.json();
         if (!res.ok) throw new Error(result);
         setProduct(result[0]);
@@ -55,7 +53,7 @@ const Product = () => {
       formData.append("product", imageFile);
 
       const response = await fetch(
-        "https://typastore.up.railway.app/product/upload-product-image/" + id,
+        "https://typa.onrender.com/product/upload-product-image/" + id,
         {
           method: "POST",
           headers: {
@@ -80,24 +78,20 @@ const Product = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      const res = await fetch(
-        "https://typastore.up.railway.app/product/" + id,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + adminToken,
-          },
-          body: JSON.stringify({
-            name: name.trim().length > 0 ? name : undefined,
-            information:
-              information.trim().length > 0 ? information : undefined,
-            price: price > 0 ? price : undefined,
-            priceDiscount: priceDiscount,
-            rest: rest,
-          }),
-        }
-      );
+      const res = await fetch("https://typa.onrender.com/product/" + id, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + adminToken,
+        },
+        body: JSON.stringify({
+          name: name.trim().length > 0 ? name : undefined,
+          information: information.trim().length > 0 ? information : undefined,
+          price: price > 0 ? price : undefined,
+          priceDiscount: priceDiscount,
+          rest: rest,
+        }),
+      });
       const result = await res.json();
       console.log(result);
       if (!res.ok) throw new Error(result);

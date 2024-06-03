@@ -5,7 +5,7 @@ const sgMail = require("@sendgrid/mail");
 
 const sendVerificationEmail = async (email, token) => {
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-  const verificationLink = `https://typastore.up.railway.app/user/verify/${token}`;
+  const verificationLink = `https://typa.onrender.com/user/verify/${token}`;
 
   const msg = {
     to: email, // Change to your recipient

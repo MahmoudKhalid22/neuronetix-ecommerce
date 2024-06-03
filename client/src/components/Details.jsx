@@ -15,16 +15,13 @@ function Details({ onSetIsLogin }) {
     const getUserData = async () => {
       try {
         setLoading(true);
-        const response = await fetch(
-          "https://typastore.up.railway.app/user/me/",
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: "Bearer " + data?.accessToken,
-            },
-          }
-        );
+        const response = await fetch("https://typa.onrender.com/user/me/", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + data?.accessToken,
+          },
+        });
         if (!response.ok) {
           throw new Error();
         }

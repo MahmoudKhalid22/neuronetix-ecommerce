@@ -16,7 +16,7 @@ const oauth = passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "https://typastore.up.railway.app/user/details",
+      callbackURL: "https://typa.onrender.com/user/details",
       // passReqToCallback: true,
     },
     async function (request, accessToken, refreshToken, profile, done) {

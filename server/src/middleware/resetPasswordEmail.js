@@ -5,7 +5,7 @@ const sgMail = require("@sendgrid/mail");
 
 const resetPasswordEmail = async (email, token) => {
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-  const resetPasswordLink = `https://typastore.up.railway.app/user/forget-password/${token}`;
+  const resetPasswordLink = `https://typa.onrender.com/user/forget-password/${token}`;
 
   const msg = {
     to: email, // Change to your recipient

@@ -25,39 +25,32 @@ function AddUserForm({ role, admin, teachers }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(
-        "https://typastore.up.railway.app/teacher/signup",
-        {
-          method: "POST",
-          body: JSON.stringify({
-            name: name,
-            email: email,
-            password: password,
-            age: age,
-            status: "verified",
-            verified: true,
-            role: admin ? role : "student",
-            price: admin ? (role === "teacher" ? price : null) : null,
-            professional: admin
-              ? role === "teacher"
-                ? professional
-                : null
-              : null,
-            information: admin
-              ? role === "teacher"
-                ? information
-                : null
-              : null,
+      const response = await fetch("https://typa.onrender.com/teacher/signup", {
+        method: "POST",
+        body: JSON.stringify({
+          name: name,
+          email: email,
+          password: password,
+          age: age,
+          status: "verified",
+          verified: true,
+          role: admin ? role : "student",
+          price: admin ? (role === "teacher" ? price : null) : null,
+          professional: admin
+            ? role === "teacher"
+              ? professional
+              : null
+            : null,
+          information: admin ? (role === "teacher" ? information : null) : null,
 
-            id: admin ? (role === "student" ? teacherId : null) : null,
-          }),
-          headers: {
-            "Content-Type": "application/json",
+          id: admin ? (role === "student" ? teacherId : null) : null,
+        }),
+        headers: {
+          "Content-Type": "application/json",
 
-            Authorization: "Bearer " + token,
-          },
-        }
-      );
+          Authorization: "Bearer " + token,
+        },
+      });
 
       if (!response.ok) {
         const errorData = await response.json();

@@ -20,7 +20,7 @@ const ProductCard = ({ product, isAdmin }) => {
     try {
       setLoading(true);
       const res = await fetch(
-        "https://typastore.up.railway.app/product/" + product?._id,
+        "https://typa.onrender.com/product/" + product?._id,
         {
           method: "DELETE",
           headers: {

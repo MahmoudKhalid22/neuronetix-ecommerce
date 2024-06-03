@@ -48,7 +48,7 @@ const Settings = () => {
   const getData = async () => {
     try {
       setLoading(true);
-      const response = await fetch("https://typastore.up.railway.app/user/me", {
+      const response = await fetch("https://typa.onrender.com/user/me", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
